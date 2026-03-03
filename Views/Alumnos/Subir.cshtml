@@ -1,0 +1,120 @@
+﻿@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Confirmar carga";
+    List<SistemaWeb.Models.Clientes> lista = TempData["listaAlumno"] as List<SistemaWeb.Models.Clientes>;
+}
+
+@{
+    if (ViewBag.Operacion == "Final")
+    {
+        <div class="row align-items-stretch mx-5 mt-3">
+            <div class="col">
+                <ul class="lineaArbol">
+                    <li class="textoLeyenda">
+                        Subir archivo de pago >
+                    </li>
+                    <li class="textoLeyenda">
+                        Detalles de archivo >
+                    </li>
+                    <li class="text-rojo textoLeyenda">
+                        Finalización
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container w-100 mw-100 p-0">
+            <div class="row align-items-stretch mx-5 mt-5">
+                <div class="col">
+
+                    <div class="w-50 mx-auto text-center">
+                        <i class="fa-solid fa-file-arrow-up iconTitle"></i>
+                    </div>
+                    <div class="row w-50 mx-auto text-center">
+                        <div class="col">
+                            <h5>Se han cargado los alumnos correctamente</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mx-auto w-50 text-center mb-3">
+                        <div class="col">
+                            <p class="d-inline-block normal text-end m-0"><b>Alumnos registrados:</b> @ViewBag.alumnosTotal</p>
+                        </div>
+                    </div>
+
+                    <div class="d-block m-auto mt-5 w-50 mx-auto">
+                        <div class="pb-2 mt-3">
+                            <a href="/Perfil" class="btn-rojo btn float-end">Salir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row align-items-stretch mx-5 mt-3">
+            <div class="col">
+                <ul class="lineaArbol">
+                    <li class="textoLeyenda">
+                        Subir archivo de pago >
+                    </li>
+                    <li class="text-rojo textoLeyenda">
+                        Detalles de archivo
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container w-100 mw-100 p-0">
+            <div class="row align-items-stretch mx-5 mt-5">
+                <div class="col">
+
+                    <div class="w-50 mx-auto text-center">
+                        <i class="fa-solid fa-file-arrow-up iconTitle"></i>
+                    </div>
+
+                    @using (Html.BeginForm("Subir", "Alumnos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div class="row w-50 mx-auto text-center">
+                            <div class="col">
+                                <h5>¿Desea subir la información de los alumnos?</h5>
+                                <h5>Se encontró información de @ViewBag.alumnosTotal alumno(s)</h5>
+                            </div>
+                        </div>
+
+                        <div class="row mx-auto w-50 text-center">
+                            <div class="col">
+                                <p class="d-inline-block normal text-end m-0"><b>Nombre del archivo:</b> @TempData["nombreArchivo"]</p>
+                            </div>
+                        </div>
+                        <div class="row mx-auto w-50 text-center mb-3">
+                            <div class="col">
+                                <p class="d-inline-block normal text-end m-0"><b>Alumnos encontrados:</b> @ViewBag.alumnosTotal</p>
+                            </div>
+                        </div>
+
+                        <input hidden name="listaAlumnos" value="@lista"/>
+
+                        <div class="d-block m-auto mt-5 w-50 mx-auto">
+                            <div class="pb-2 mt-3">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Continuar</button>
+                                <a href="/Alumnos/Cargar" class="btn-rojo btn float-end">Cancelar</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

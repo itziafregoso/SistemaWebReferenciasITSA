@@ -1,0 +1,132 @@
+﻿@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Conciliar referencias";
+}
+
+@{
+    if (ViewBag.Operacion == "Final")
+    {
+        <div class="row align-items-stretch mx-5 mt-3">
+            <div class="col">
+                <ul class="lineaArbol">
+                    <li class="textoLeyenda">
+                        Subir archivo de pago >
+                    </li>
+                    <li class="textoLeyenda">
+                        Detalles de archivo >
+                    </li>                    
+                    <li class="text-rojo textoLeyenda">
+                        Finalización
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container w-100 mw-100 p-0">
+            <div class="row align-items-stretch mx-5 mt-5">
+                <div class="col">
+
+                    <div class="w-50 mx-auto text-center">
+                        <i class="fa-solid fa-file-arrow-up iconTitle"></i>
+                    </div>
+                    <div class="row w-50 mx-auto text-center">
+                        <div class="col">
+                            <h5>Se ha generado el archivo correctamente</h5>
+                        </div>
+                    </div>
+
+                    <div class="row mx-auto w-50 text-center mb-3">
+                        <div class="col">
+                            <p class="d-inline-block normal text-end m-0"><b>Referencias encontradas:</b> @ViewBag.refTotal.Count referencia(s)</p>
+                        </div>
+                    </div>
+
+                    <div class="d-block m-auto mt-5 w-50 mx-auto">
+                        <div class="pb-2 mt-3">
+                            @if (ViewBag.operador == "Reporte")
+                            {
+                                <a href="/Perfil/ReporteIncidencias" class="btn-rojo btn">Descargar Excel</a>
+                            }
+                            else
+                            {
+                                <a href="/Perfil/PolizaPago" class="btn-rojo btn">Descargar Excel</a>
+                            }
+                            <a href="/Perfil/ArchivoPago" class="btn-rojo btn float-end">Salir</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row align-items-stretch mx-5 mt-3">
+            <div class="col">
+                <ul class="lineaArbol">
+                    <li class="textoLeyenda">
+                        Subir archivo de pago >
+                    </li>
+                    <li class="text-rojo textoLeyenda">
+                        Detalles de archivo
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container w-100 mw-100 p-0">
+            <div class="row align-items-stretch mx-5 mt-5">
+                <div class="col">
+
+                    <div class="w-50 mx-auto text-center">
+                        <i class="fa-solid fa-file-arrow-up iconTitle"></i>
+                    </div>
+
+                    @using (Html.BeginForm("ConciliarReferencias", "Perfil", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+
+                        <div class="row w-50 mx-auto text-center">
+                            @if (ViewBag.Operacion == "Poliza")
+                            {
+                                <div class="col">
+                                    <h5>¿Desea conciliar las referencias?</h5>
+                                    <h5>Se analizaron @ViewBag.refTotal.Count referencia(s)</h5>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col">
+                                    <h5>¿Desea generar un reporte de incidencias?</h5>
+                                    <h5>Se encontraron @ViewBag.refError.Count incidencia(s)</h5>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row mx-auto w-50 text-center mb-3">
+                            <div class="col">
+                                <p class="d-inline-block normal text-end m-0"><b>Referencias encontradas:</b> @ViewBag.refTotal.Count referencia(s)</p>
+                            </div>
+                        </div>
+
+                        <input hidden value="@ViewBag.Operacion" name="operador" />
+
+                        <div class="d-block m-auto mt-5 w-50 mx-auto">
+                            <div class="pb-2 mt-3">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Continuar</button>
+                                <a href="/Perfil/ArchivoPago" class="btn-rojo btn float-end">Cancelar</a>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

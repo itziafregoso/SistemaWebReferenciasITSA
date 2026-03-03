@@ -1,0 +1,546 @@
+﻿@model SistemaWeb.Models.PerfilesAd
+
+@{
+    ViewBag.Title = "Administrar perfiles";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-5">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nuevo perfil
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_PerfilesVistaParcial")
+        </div>
+    </div>
+</div>
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-7 m-auto rounded">
+            <form id="identicalForm1" class="needs-validation" novalidate method="post">
+
+                <div class="bg-rojo p-1 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Agregar nuevo perfil</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label normal">Nombre de perfil</label>
+                        <input maxlength="25" type="text" class="form-control" name="nombre" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                        <div class="invalid-feedback textoLeyenda">
+                            Solo se admiten letras mayúsculas sin acentos
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="adminperfiles" class="form-check-label normal">Administrar perfiles</label>
+                                <input type="checkbox" name="adminperfiles" id="adminperfiles" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adminusuarios" class="form-check-label normal">Administrar usuarios</label>
+                                <input type="checkbox" name="adminusuarios" id="adminusuarios" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adminservicio" class="form-check-label normal">Administrar servicios</label>
+                                <input type="checkbox" name="adminservicio" id="adminservicio" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subirarchivo" class="form-check-label normal">Subir archivo de pago</label>
+                                <input type="checkbox" name="subirarchivo" id="subirarchivo" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adminalumnos" class="form-check-label normal">Administrar alumnos</label>
+                                <input type="checkbox" name="adminalumnos" id="adminalumnos" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="verhistorico" class="form-check-label normal">Ver histórico</label>
+                                <input type="checkbox" name="verhistorico" id="verhistorico" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="verservicios" class="form-check-label normal">Ver servicios</label>
+                                <input type="checkbox" name="verservicios" id="verservicios" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="administrarareas" class="form-check-label normal">Administrar áreas</label>
+                                <input type="checkbox" name="administrarareas" id="administrarareas" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="admintiposervicios" class="form-check-label normal">Administrar tipos de servicios</label>
+                                <input type="checkbox" name="admintiposervicios" id="admintiposervicios" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adminparametros" class="form-check-label normal">Opciones de sistema</label>
+                                <input type="checkbox" name="adminparametros" id="adminparametros" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="veralumnos" class="form-check-label normal">Ver alumnos</label>
+                                <input type="checkbox" name="veralumnos" id="veralumnos" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="restaurarsistema" class="form-check-label normal">Restaurar sistema</label>
+                                <input type="checkbox" name="restaurarsistema" id="restaurarsistema" class="form-check-input" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="bitacoraeventos" class="form-check-label normal">Bitácora de eventos</label>
+                                <input type="checkbox" name="bitacoraeventos" id="bitacoraeventos" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="verreferencias" class="form-check-label normal">Ver referencias</label>
+                                <input type="checkbox" name="verreferencias" id="verreferencias" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="generarcompra" class="form-check-label normal">Generar compra</label>
+                                <input type="checkbox" name="generarcompra" id="generarcompra" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="adminadareas" class="form-check-label normal">Administrar áreas administrativas</label>
+                                <input type="checkbox" name="adminadareas" id="adminadareas" class="form-check-input" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="subiralumnos" class="form-check-label normal">Cargar alumnos</label>
+                                <input type="checkbox" name="subiralumnos" id="subiralumnos" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+
+                            <div class="pb-2 mt-3">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Añadir nuevo perfil</button>
+                                <a id="agUsuarioClose" class="btn-rojo btn float-end">Cerrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@{
+    if (ViewBag.Editar == true || ViewBag.op != null || ViewBag.error != null)
+    {
+
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        @{
+                            if (ViewBag.op == null)
+                            {
+                                if (ViewBag.error != null)
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Ver datos de perfil</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Completado</h5>
+                            }
+                        }
+
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        @if (ViewBag.op != null || ViewBag.error != null)
+                        {
+                            <div>
+                                @if (ViewBag.error != null)
+                                {
+                                    <h4 class="quizLabel">@ViewBag.error</h4>
+                                }
+                                else if (ViewBag.op == "Agregar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha registrado el perfil <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Eliminar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha eliminado el perfil <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Actualizar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha actualizado el perfil <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                <div class="row">
+                                    <div class="col mt-3 mb-2">
+                                        @Html.ActionLink("Aceptar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="px-3 m-3">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.IdPerfil)
+
+                                    <h3 class="fw-bold text-rojo">@Model.nombreperfil</h3>
+
+
+                                    <div class="row align-items-stretch mt-4">
+                                        <div class="row align-items-stretch">
+                                            <div class="col">
+
+                                                <div class="mb-3">
+                                                    <label for="adminperfiles" class="form-check-label normal">Administrar perfiles</label>
+                                                    <div>
+                                                        @if (Model.adminperfiles == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="adminusuarios" class="form-check-label normal">Administrar usuarios</label>
+                                                    <div>
+                                                        @if (Model.adminusuarios == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="adminservicios" class="form-check-label normal">Administrar servicios</label>
+                                                    <div>
+                                                        @if (Model.adminservicio == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="subirarchivos" class="form-check-label normal">Subir archivos</label>
+                                                    <div>
+                                                        @if (Model.subirarchivo == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="generarcompra" class="form-check-label normal">Generar compra</label>
+                                                    <div>
+                                                        @if (Model.generarcompra == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="adminadareas" class="form-check-label normal">Administrar áreas administrativas</label>
+                                                    <div>
+                                                        @if (Model.administrarareas == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+
+                                                <div class="mb-3">
+                                                    <label for="verservicios" class="form-check-label normal">Ver servicios</label>
+                                                    <div>
+                                                        @if (Model.verservicios == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="adminareas" class="form-check-label normal">Administrar áreas</label>
+                                                    <div>
+                                                        @if (Model.adminadareas == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="admintiposervicios" class="form-check-label normal">Administrar tipos de servicios</label>
+                                                    <div>
+                                                        @if (Model.admintiposervicios == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="adminparametros" class="form-check-label normal">Opciones de sistema</label>
+                                                    <div>
+                                                        @if (Model.adminparametros == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="bitacoraeventos" class="form-check-label normal">Bitácora de eventos</label>
+                                                    <div>
+                                                        @if (Model.bitacoraeventos == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="verreferencias" class="form-check-label normal">Ver referencias</label>
+                                                    <div>
+                                                        @if (Model.verreferencias == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+
+                                                <div class="mb-3">
+                                                    <label for="adminalumnos" class="form-check-label normal">Administrar alumnos</label>
+                                                    <div>
+                                                        @if (Model.adminalumnos == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="veralumnos" class="form-check-label normal">Ver alumnos</label>
+                                                    <div>
+                                                        @if (Model.veralumnos == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="subiralumnos" class="form-check-label normal">Cargar alumnos</label>
+                                                    <div>
+                                                        @if (Model.subiralumnos == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="verhistorico" class="form-check-label normal">Ver histórico</label>
+                                                    <div>
+                                                        @if (Model.verhistorico == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="restaurarsistema" class="form-check-label normal">Restaurar sistema</label>
+                                                    <div>
+                                                        @if (Model.restaurarsistema == true)
+                                                        {
+                                                            <span class='badge bg-success mt-1'>Permitido</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class='badge bg-danger mt-1'>No permitido</span>
+                                                        }
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-stretch">
+                                            <div class="col p-0">
+                                                <div class="pb-2 mt-3">
+                                                    <a href="/Perfiles" class="btn-rojo btn float-end ">Cerrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+
+        function convertirMayuscula(e) {
+            e.value = e.value.toUpperCase();
+            if (e.checkValidity()) {
+                e.classList.remove('is-invalid')
+                e.classList.add('is-valid');
+
+            } else {
+                e.classList.remove('is-valid')
+                e.classList.add('is-invalid');
+            }
+        }
+
+        $(document).ready(function () {
+            let currForm1 = document.getElementById('identicalForm1');
+
+            // Validate on submit:
+            currForm1.addEventListener('submit', function (event) {
+                if (currForm1.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                currForm1.classList.add('was-validated');
+            }, false);
+
+
+            // Validate on input:
+            currForm1.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener(('input'), () => {
+                    if (input.checkValidity()) {
+                        input.classList.remove('is-invalid')
+                        input.classList.add('is-valid');
+
+                    } else {
+                        input.classList.remove('is-valid')
+                        input.classList.add('is-invalid');
+                    }
+                });
+            });
+
+
+            const boton = document.querySelector("#agUsuario");
+            // Agregar listener
+            boton.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.remove("noVisible");
+            });
+
+            const botonCerrar = document.querySelector("#agUsuarioClose");
+            // Agregar listener
+            botonCerrar.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.add("noVisible");
+            });
+        });
+    </script>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

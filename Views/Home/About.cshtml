@@ -1,0 +1,30 @@
+﻿@using SistemaWeb.Controllers;
+@model List<Usuario>
+
+@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Email</td>
+            <td>Nombre</td>
+        </tr>
+    </thead>
+    <tbody>
+        @{ 
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Email</td>
+                    <td>@item.Nombre</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

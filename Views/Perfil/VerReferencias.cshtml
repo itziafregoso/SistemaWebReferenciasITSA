@@ -1,0 +1,564 @@
+﻿@model SistemaWeb.Models.Referencias
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Ver Referencias";
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Perfil/JsonReferencias")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "noReferencia", "name": "noReferencia", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonVer' href='/Perfil/VerReferencias/" + data + "'>" + "<i class='fa-solid fa-eye'></i> </a>";
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "estado", "name": "estado", "autoWidth": true, "render":
+                    function (data, type, row) {
+                        if (row.estado == 'Emitida' || row.estado == 'EMITIDA') {
+                            return "<a class='botonEliminar' href='/Perfil/ConfirmarReferencia/" + row.noReferencia + "?op=Eliminar'>" + "<i class='fa-solid fa-ban'></i> </a>";
+                        } else {
+                            return "";
+                        }
+                    },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                { "data": "noReferencia", "name": "noReferencia", "autoWidth": true },
+                { "data": "estado", "name": "estado", "autoWidth": true },
+                {
+                    "data": "fechaEmision", "name": "fechaEmision", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "fechaEstado", "name": "fechaEstado", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "fechaVencimiento", "name": "fechaVencimiento", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "monto", "name": "monto", "autoWidth": true, "render":
+                        function (data) {
+                            return "$" + data.toFixed(2);
+                        },
+                    "autoWidth": true
+                },
+                { "data": "cliente", "name": "cliente", "autoWidth": true }
+            ],
+            "order": [[2, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="reporteBtn">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            <div class="container w-100 mw-100 p-0">
+                <div class="row align-items-stretch">
+                    <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                        <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                            <thead class="table-rojo">
+                                <tr>
+                                    <th scope="col" class="colBoton">Ver</th>
+                                    <th scope="col" class="colBoton">Cancelar</th>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Fecha de emisión</th>
+                                    <th scope="col">Último estado</th>
+                                    <th scope="col">Fecha de vencimiento</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="reporteForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            @using (Html.BeginForm("ReporteReferencia", "Perfil"))
+            {
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Generar reporte Excel</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="estadoRep" class="form-label normal">Estado:</label>
+                                <select id="estadoRep" class="form-control form-select" name="estadoRep">
+                                    <option value="">TODAS</option>
+                                    <option value="EMITIDA">EMITIDAS</option>
+                                    <option value="CONCILIADA">CONCILIADAS</option>
+                                    <option value="CANCELADA">CANCELADAS</option>
+                                    <option value="CADUCA">CADUCAS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="fechaInicio" class="form-label normal">Fecha inicial:</label>
+                                <input type="date" class="form-control" name="fechaInicio" id="fechaInicio" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="fechaFinal" class="form-label normal">Fecha final:</label>
+                                <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="pb-2 mt-1">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Descargar Excel</button>
+                                <a id="reporteClose" class="btn-rojo btn float-end">Cerrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@{
+    if (ViewBag.Editar == true || ViewBag.op != null || ViewBag.error != null)
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        @{
+                            if (ViewBag.op == null)
+                            {
+                                if (ViewBag.error != null)
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Ver datos de referencia</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Completado</h5>
+                            }
+                        }
+
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        @if (ViewBag.op != null || ViewBag.error != null)
+                        {
+                            <div>
+                                @if (ViewBag.error != null)
+                                {
+                                    <h4 class="quizLabel">@ViewBag.error</h4>
+                                }
+                                else if (ViewBag.op == "Agregar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha registrado el usuario <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Eliminar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha cancelado la referencia <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Actualizar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha actualizado el usuario <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                <div class="row">
+                                    <div class="col mt-3 mb-2">
+                                        @Html.ActionLink("Aceptar", "VerReferencias", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="px-3 m-3 ventanaFlotanteGrande">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.numref)
+
+
+
+                                    <div class="accordion mb-5" id="accordionExample">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Datos de referencia
+                                                </button>
+                                            </h2>
+                                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="row align-items-stretch">
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Referencia</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.numref" />
+                                                            </div>
+
+                                                            <div class="mb-2">
+                                                                <label for="IdPerfil" class="form-label normal">Estado</label>
+                                                                <input type="text" class="form-control" name="IdPerfil" readonly value="@Model.estadoref" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="correoelectronico" class="form-label normal">Último estado</label>
+                                                                <input type="text" class="form-control" name="correoelectronico" readonly value="@Model.fechaestado.ToShortDateString()" />
+                                                            </div>
+
+                                                            <div class="mb-2">
+                                                                <label for="IdAreaAd" class="form-label normal">Monto</label>
+                                                                <input type="text" class="form-control" name="IdAreaAd" readonly value="@decimal.Round(Model.monto, 2)" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="iniciales" class="form-label normal">Fecha de vencimiento</label>
+                                                                <input maxlength="4" type="text" class="form-control" name="iniciales" readonly value="@Model.fechavencimiento.ToShortDateString()" />
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <label for="iniciales" class="form-label normal">Fecha de emisión</label>
+                                                                <input maxlength="4" type="text" class="form-control" name="iniciales" readonly value="@Model.fechaemision.ToShortDateString()" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="mb-2">
+
+                                                                @{
+                                                                    var fechaVVer = Model.fechavencimiento.ToShortDateString();
+                                                                    fechaVVer = fechaVVer.Replace("/", "");
+
+                                                                    var refVer = Model.numref.ToString();
+                                                                    var montoVer = (decimal.Round(Model.monto, 2)).ToString();
+                                                                    montoVer = montoVer.Replace(".", "");
+
+                                                                    var fechaEVer = Model.fechaemision.ToShortDateString();
+                                                                    fechaEVer = fechaEVer.Replace("/", "");
+
+                                                                    var codigoVal = "";
+
+                                                                    codigoVal = fechaVVer + refVer + montoVer + fechaEVer;
+                                                                }
+
+                                                                <label for="cverificador" class="form-label normal">Código de validación</label>
+                                                                <input maxlength="4" type="text" class="form-control" name="cverificador" readonly value="@codigoVal" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Datos de cliente
+                                                </button>
+                                            </h2>
+                                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <div class="row align-items-stretch">
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Nombre</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.nombre_" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Apellidos</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.apellidos" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col col-3">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Matrícula</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.matricula" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Tipo de persona</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.tipopersona" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">RFC</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.rfc_" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Correo electrónico</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.correoelectronico" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <h5 class="normal">Datos de domicilio</h5>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Calle</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.calle" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">No. Ext</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.numeroex" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">No. Int</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.numeroin" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">C.P.</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.cp" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-2">
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Colonia</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.colonia" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Ciudad</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.ciudad" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-2">
+                                                                <label for="nombre" class="form-label normal">Estado</label>
+                                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.Clientes.estado" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Compras realizadas
+                                                </button>
+                                            </h2>
+                                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                                <div class="accordion-body">
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function () {
+                                                            $("#tblRef").DataTable({
+                                                                "processing": true,
+                                                                "serverSide": true,
+                                                                "ajax": {
+                                                                    "url": "@Url.Content("~/Perfil/JsonProductos/" + Model.numref)",
+                                                                    "type": "POST",
+                                                                    "datatype":"json"
+                                                                },
+                                                                "pageLength": 10,
+                                                                "filter": false,
+                                                                "responsivePriority": 1,
+                                                                "data": null,
+                                                                "columns": [
+                                                                    { "data": "producto", "name": "producto", "autoWidth": true },
+                                                                    { "data": "cantidad", "name": "cantidad", "autoWidth": true },
+                                                                    {
+                                                                        "data": "monto", "name": "monto", "autoWidth": true, "render":
+                                                                            function (data) {
+                                                                                return "$" + data.toFixed(2);
+                                                                            },
+                                                                        "autoWidth": true
+                                                                    }
+                                                                ],
+                                                                "order": [[2, "asc"]],
+                                                                "ColumnDefs": [
+                                                                    { "bSortable": false, "aTargets": [2] },
+                                                                ],
+                                                                language: {
+                                                                    "decimal": "",
+                                                                    "emptyTable": "No hay información",
+                                                                    "info": "",
+                                                                    "infoEmpty": "",
+                                                                    "infoFiltered": "",
+                                                                    "infoPostFix": "",
+                                                                    "thousands": ",",
+                                                                    "lengthMenu": "",
+                                                                    "loadingRecords": "Cargando...",
+                                                                    "processing": "Procesando...",
+                                                                    "search": "Buscar:",
+                                                                    "zeroRecords": "Sin resultados encontrados",
+                                                                    "paginate": {
+                                                                        "first": "Primero",
+                                                                        "last": "Ultimo",
+                                                                        "next": "Siguiente",
+                                                                        "previous": "Anterior"
+                                                                    }
+                                                                },
+                                                            });
+
+                                                        });
+                                                    </script>
+
+                                                    <div class="container w-100 mw-100 p-0">
+                                                        <div class="row align-items-stretch">
+                                                            <div class="col">
+                                                                <div class="container w-100 mw-100 p-0">
+                                                                    <div class="row align-items-stretch">
+                                                                        <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                                                                            <table id="tblRef" class="table table-striped text-center shadow-sm display" style="width:100%">
+                                                                                <thead class="table-rojo">
+                                                                                    <tr>
+                                                                                        <th scope="col">Producto</th>
+                                                                                        <th scope="col">Cantidad</th>
+                                                                                        <th scope="col">Costo</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody></tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="pb-2 mt-1">
+                                                @Html.ActionLink("Descargar PDF", "GenerarPDF", "Perfil", new { id = Model.numref, estado = Model.estadoref }, new { @class = "btn btn-rojo" })
+                                                <a href="/Perfil/VerReferencias" class="btn-rojo btn float-end">Cerrar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<script>
+    $(document).ready(function () {
+        const btnDos = document.querySelector("#reporteBtn");
+        // Agregar listener
+        btnDos.addEventListener("click", function (evento) {
+            var elementDos = document.getElementById("reporteForm");
+            elementDos.classList.remove("noVisible");
+        });
+
+        const botonCerrar2 = document.querySelector("#reporteClose");
+        // Agregar listener
+        botonCerrar2.addEventListener("click", function (evento) {
+            var element2 = document.getElementById("reporteForm");
+            element2.classList.add("noVisible");
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

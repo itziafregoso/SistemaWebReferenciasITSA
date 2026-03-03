@@ -1,0 +1,417 @@
+﻿@model SistemaWeb.Models.Clientes
+
+@{
+    ViewBag.Title = "Administrar alumnos";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nuevo alumno
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_AlumnosVistaParcial")
+        </div>
+    </div>
+</div>
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            <form id="identicalForm1" class="needs-validation" novalidate method="post">
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Agregar nuevo alumno</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label normal">Nombre</label>
+                                <input maxlength="30" type="text" class="form-control" name="nombre" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas sin acentos
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="apellidos" class="form-label normal">Apellidos</label>
+                                <input maxlength="30" type="text" class="form-control" name="apellidos" pattern="([A-Z]+[\s]?[A-Z]*)+" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas sin acentos
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="matricula" class="form-label normal">Matrícula</label>
+                                <input id="matricula" maxlength="9" type="text" class="form-control" name="matricula" pattern="(((ISC)|(LG)|(IB)|(IE)|(II)|(IM))[0-9]{6})" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas y números
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+
+                            @{
+                                var txt = "([A-Za-z0-9]+[._]*[A-Za-z0-9]*)+(@itsatlixco.edu.mx)";
+                            }
+
+                            <div class="mb-3">
+                                <label for="correoelectronico" class="form-label normal">Correo electrónico</label>
+                                <input maxlength="60" type="email" class="form-control" name="correoelectronico" id="correo" pattern="@txt" required />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un correo electrónico institucional
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="calle" class="form-label normal">Calle</label>
+                                <input maxlength="30" id="calle" type="text" class="form-control" name="calle" pattern="(([A-Z]|[0-9])+[ ]?[.]?[ ]?(([A-Z]|[0-9])+[.]?[ ]?[A-Z]*[0-9]*[.]?[ ]?)*([A-Z]|[0-9])+)" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un nombre correcto
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="noext" class="form-label normal">Número exterior</label>
+                                <input maxlength="10" id="noext" type="text" class="form-control" pattern="((SN)|[0-9]+[ ][A-Z]+|(ED)[ ][0-9]+|[0-9]+)" name="noext" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un número exterior válido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="noint" class="form-label normal">Número interior</label>
+                                <input maxlength="5" id="noint" type="text" class="form-control" pattern="([0-9]+[ ][A-Z]+|(D)[ ][0-9]+|[0-9]+)" name="noint" onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un número interior válido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="colonia" class="form-label normal">Colonia</label>
+                                <input maxlength="30" id="colonia" type="text" class="form-control" name="colonia" pattern="(([A-Z]|[0-9])+[ ]?[.]?[ ]?(([A-Z]|[0-9])+[.]?[ ]?[A-Z]*[0-9]*[.]?[ ]?)*([A-Z]|[0-9])+)" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa una colonia válida
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="cp" class="form-label normal">Código postal</label>
+                                <input maxlength="10" id="cp" type="text" class="form-control" name="cp" pattern="[0-9]{5}" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un código postal válido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="ciudad" class="form-label normal">Ciudad</label>
+                                <input maxlength="30" id="ciudad" type="text" class="form-control" name="ciudad" pattern="([A-Z]+[\s]?[A-Z]*)+" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa una ciudad válida
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="estado" class="form-label normal">Estado</label>
+                                <input maxlength="30" id="estado" type="text" class="form-control" name="estado" pattern="([A-Z]+[\s]?[A-Z]*)+" required onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa un estado válido
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="col">
+                                <div class="pb-2 mt-3">
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Añadir nuevo alumno</button>
+                                    <a id="agUsuarioClose" class="btn-rojo btn float-end">Cerrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@{
+    if (ViewBag.Editar == true || ViewBag.op != null || ViewBag.error != null)
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        @{
+                            if (ViewBag.op == null)
+                            {
+                                if (ViewBag.error != null)
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Ver datos de alumno</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Completado</h5>
+                            }
+                        }
+
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        @if (ViewBag.op != null || ViewBag.error != null)
+                        {
+                            <div>
+                                @if (ViewBag.error != null)
+                                {
+                                    <h4 class="quizLabel">@ViewBag.error</h4>
+                                }
+                                else if (ViewBag.op == "Agregar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha registrado el alumno <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Eliminar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha eliminado el alumno <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Actualizar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha actualizado el alumno <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                <div class="row">
+                                    <div class="col mt-3 mb-2">
+                                        @Html.ActionLink("Aceptar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="px-3 m-3">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(Model => Model.IdCliente)
+
+                                    <h3 class="fw-bold text-rojo d-inline-block">@Model.nombre_</h3>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="nombre" class="form-label normal">Nombre</label>
+                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.nombre_" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="apellidos" class="form-label normal">Apellidos</label>
+                                                <input maxlength="30" type="text" class="form-control" name="nombre" readonly value="@Model.apellidos" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="matricula" class="form-label normal">Matrícula</label>
+                                                <input id="matricula" maxlength="9" type="text" class="form-control" name="matricula" readonly value="@Model.matricula" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="correoelectronico" class="form-label normal">Correo electrónico</label>
+                                                <input maxlength="60" type="email" class="form-control" name="correoelectronico" id="correo" readonly value="@Model.correoelectronico" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="calle" class="form-label normal">Calle</label>
+                                                <input maxlength="30" id="calle" type="text" class="form-control" name="calle" readonly value="@Model.calle" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="noext" class="form-label normal">Número exterior</label>
+                                                <input maxlength="10" id="noext" type="text" class="form-control" readonly value="@Model.numeroex" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="noint" class="form-label normal">Número interior</label>
+                                                <input maxlength="5" id="noint" type="text" class="form-control" readonly value="@Model.numeroin" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colonia" class="form-label normal">Colonia</label>
+                                                <input maxlength="30" id="colonia" type="text" class="form-control" name="colonia" readonly value="@Model.colonia" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="cp" class="form-label normal">Código postal</label>
+                                                <input maxlength="10" id="cp" type="text" class="form-control" name="cp" readonly value="@Model.cp" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="ciudad" class="form-label normal">Ciudad</label>
+                                                <input maxlength="30" id="ciudad" type="text" class="form-control" name="ciudad" readonly value="@Model.ciudad" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="estado" class="form-label normal">Estado</label>
+                                                <input maxlength="30" id="estado" type="text" class="form-control" name="estado" readonly value="@Model.estado" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="col">
+                                                <div class="pb-2 mt-3">
+                                                    <a href="/Alumnos" class="btn-rojo btn float-end">Cerrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+
+        function convertirMayuscula(e) {
+            e.value = e.value.toUpperCase();
+            if (e.checkValidity()) {
+                e.classList.remove('is-invalid')
+                e.classList.add('is-valid');
+
+            } else {
+                e.classList.remove('is-valid')
+                e.classList.add('is-invalid');
+            }
+        }
+
+        $(document).ready(function () {
+            let currForm1 = document.getElementById('identicalForm1');
+
+            $("#contrasena, #confirmarcontrasena").on("keyup", function () {
+                // store the `newPassword` and `confirmPassword` in two variables
+                var newPasswordValue = $("#contrasena").val();
+                var confirmPasswordValue = $("#confirmarcontrasena").val();
+
+                if (newPasswordValue.length > 0 && confirmPasswordValue.length > 0) {
+                    if (confirmPasswordValue !== newPasswordValue) {
+                        $("#confirmarcontrasena").addClass('is-invalid');
+                    }
+                    if (confirmPasswordValue === newPasswordValue) {
+                        $("#confirmarcontrasena").addClass('is-valid');
+                    }
+                }
+            });
+
+            // Validate on submit:
+            currForm1.addEventListener('submit', function (event) {
+                if (currForm1.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                currForm1.classList.add('was-validated');
+            }, false);
+
+
+            // Validate on input:
+            currForm1.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener(('input'), () => {
+                    if (input.checkValidity()) {
+                        input.classList.remove('is-invalid')
+                        input.classList.add('is-valid');
+                        var correoValor = $("#correo").val();
+
+                    } else {
+                        input.classList.remove('is-valid')
+                        input.classList.add('is-invalid');
+                    }
+                });
+            });
+
+            const boton = document.querySelector("#agUsuario");
+            // Agregar listener
+            boton.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.remove("noVisible");
+            });
+
+            const botonCerrar = document.querySelector("#agUsuarioClose");
+            // Agregar listener
+            botonCerrar.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.add("noVisible");
+            });
+
+        });
+    </script>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

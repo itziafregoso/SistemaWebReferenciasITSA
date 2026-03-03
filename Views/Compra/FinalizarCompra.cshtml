@@ -1,0 +1,48 @@
+﻿@model SistemaWeb.Models.Servicios
+
+@{
+    ViewBag.Title = "Finalizar compra";
+}
+
+<div class="container w-50 p-0">
+    <div class="row align-items-stretch">
+        <div class="col w-25">
+            <span class="d-block">1. Resumen de compra</span>
+            <span class="d-block">2. Datos del cliente</span>
+            <span class="d-block fw-bold">3. Finalizar compra</span>
+        </div>
+        <div class="col w-75 text-end">
+            <div class="row mb-1">
+                <div class="text-end col">
+                    <span>Referencia generada:</span>
+                    <span id="totalPago" class="fw-bold">@ViewBag.Referencia</span>
+                </div>
+                <div class="text-end col">
+                    <span>Pagar antes del:</span>
+                    <span id="totalPago" class="fw-bold">@ViewBag.FechaFinal</span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col text-end">
+                    <span>Total a pagar:</span>
+                    <span id="totalPago" class="fw-bold">$@ViewBag.TotalPago</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    @Html.ActionLink("Descargar PDF", "OrdenDeCobro", "Reportes", new { referencia = ViewBag.Referencia }, new { @class = "btn btn-rojo" })
+                </div>
+                <div class="col">
+                    <a class="btn btn-rojo" href="/Compra/Index">Finalizar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

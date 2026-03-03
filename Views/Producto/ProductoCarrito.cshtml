@@ -1,0 +1,29 @@
+﻿@using SistemaWeb.Models
+@{
+    ViewBag.Title = "ProductoCarrito";
+}
+
+<h2>ProductoCarrito</h2>
+
+    @if(Session["Productos"] == null){
+        <h2 style="color:red">
+            No hay ningún producto en el carrito
+        </h2>
+    }
+    else
+    { 
+        <dl class="row">
+            @foreach(Producto prod in Model)
+                {
+                    <dd>@prod.nombre</dd>
+                    <dd>@prod.Precio</dd>
+                    <dd>
+                        @Html.ActionLink("Eliminar del carrito"
+                       , "ProductosCarrito","Producto"
+                       , new {id = prod.IdProducto}, null)
+                    </dd>
+                }
+        </dl>
+    }
+@Html.ActionLink("Volver a los productos","ListaProductos","Producto");
+

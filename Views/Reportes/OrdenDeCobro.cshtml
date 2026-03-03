@@ -1,0 +1,167 @@
+﻿@using SistemaWeb.Models
+
+@{
+    ViewBag.Title = "Orden de cobro";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="https://kit.fontawesome.com/7e4f3ba061.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    table, table th, table tr, table td, .contenedorTabla, div, table tbody{
+        border:none;
+    }
+</style>
+
+<body>
+    <div class="contenedorPDF">
+        <div class="contenedorTabla tresCampos">
+            <table class="tituloPDF">
+                <tr>
+                    <th class="contenedorIzquierdo">
+                        <div class="logos">
+                            <img src="~/Content/img/n_logoITSA.png" />
+                        </div>
+                    </th>
+                    <th class="contenedorCentral tituloFormato">
+                        <h2>Instituto Tecnológico Superior de Atlixco</h2>
+                        <span>Dirección de Administración Escolar</span>
+                        <span>Ficha de Pago</span>
+                    </th>
+                    <th class="contenedorDerecho">
+                        <div class="logos">
+                            <img src="~/Content/img/tecnmlogo.png" />
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
+        <div class="contenedorTabla">
+            <table>
+                <tr>
+                    <th colspan="2">DATOS DEL CLIENTE</th>
+                </tr>
+                <tr>
+                    <td><span class="bolder">Nombre: </span>@ViewBag.NombreCliente</td>
+                    <td><span class="bolder">Folio: </span>@ViewBag.Folio</td>
+                </tr>
+                <tr>
+                    <td><span class="bolder">RFC/Matrícula: </span>@ViewBag.rfcMat</td>
+                    <td><span class="bolder">Fecha de impresión: </span>@System.DateTime.Now.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <td><span class="bolder">Fecha límite de pago: </span>@ViewBag.Vigencia</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+        <div class="contenedorTabla tresCampos">
+            <table>
+                <tr>
+                    <th class="px-0">Descripción</th>
+                    <th>Cantidad</th>
+                    <th class="px-0">Importe</th>
+                </tr>
+                @foreach (Servicios prod in ViewBag.Carrito)
+                {
+                    double cantidad = 0;
+                    <tr>
+                        <td>@prod.nomservicio</td>
+                        @foreach (Servicios original in ViewBag.lista)
+                        {
+                            if (original.contro == prod.contro)
+                            {
+                                cantidad = (Convert.ToDouble(prod.costo) / Convert.ToDouble(original.costo));
+                            }
+                        }
+                        <td>@cantidad</td>
+                        <td>@prod.costo</td>
+                    </tr>
+                }
+                <tr class="dosCampos">
+                    <td colspan="2" class="text-end pt-3"><span class="bolder">Total a pagar:</span></td>
+                    <td><span class="bolder pt-3">$@ViewBag.Total</span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="contenedorTabla cuatroCampos">
+            <table class="w-100 px-3">
+                <tr>
+                    <th colspan="4">FORMAS DE PAGO</th>
+                </tr>
+                <tr>
+                    <th colspan="2">Banco HSBC</th>
+                    <th>Número de servicio (RAP)</th>
+                    <th>Comisión</th>
+                    <th class="text-end">Concepto de pago</th>
+                </tr>
+                <tr>
+                    <td class="py-2">Depósito en ventanilla HSBC</td>
+                    <td class="py-2">Depósito en efectivo y cheques HSBC del mismo banco</td>
+                    <td class="py-2">@ViewBag.RAP</td>
+                    <td class="py-2">$10.00 más IVA</td>
+                    <td class="text-end py-2"><span class="bolder">@ViewBag.Referencia</span></td>
+                </tr>
+                <tr>
+                    <td class="py-2">En Internet, Banca personal HSBCnet</td>
+                    <td class="py-2">Con cargo a cuentahabientes HSBC</td>
+                    <td class="py-2">@ViewBag.RAP</td>
+                    <td class="py-2">$5.00 más IVA</td>
+                    <td class="text-end py-2"><span class="bolder">@ViewBag.Referencia</span></td>
+                </tr>
+                <tr>
+                    <td class="py-2">Cajero Automático</td>
+                    <td class="py-2">Con cargo a cuentahabientes HSBC</td>
+                    <td class="py-2">@ViewBag.RAP</td>
+                    <td class="py-2">$5.00 más IVA</td>
+                    <td class="text-end py-2"><span class="bolder">@ViewBag.Referencia</span></td>
+                </tr>
+                <tr>
+                    <td class="py-2">Cajeros Depositadores HSBC <i class="fas fa-exclamation-triangle"></i></td>
+                    <td class="py-2">Efectivo (No acepta monedas)</td>
+                    <td class="py-2">@ViewBag.RAP</td>
+                    <td class="py-2">$7.50 más IVA</td>
+                    <td class="text-end py-2"><span class="bolder">@ViewBag.Referencia</span></td>
+                </tr>
+            </table>
+            <table class="tablaNota">
+                <tr class="notaTabla">
+                    <th><i class="fas fa-exclamation-triangle"></i></th>
+                    <th colspan="3">
+                        <div class="nota normal">
+                            <span class="bolder">Nota 1: </span>
+                            En virtud de que el Cajero Depositador no devuelve cambio en centavos, es recomendable que solo se usa para pagos en cantidades enteras.
+                        </div>
+                        <div class="nota normal">
+                            <span class="bolder">Nota 2: </span>
+                            Cuando el Cajero Depositador ya no tenga cambio, se le informará en pantalla al usuario para que éste busque otros canales de pago.
+                        </div>
+                        <div class="nota normal">
+                            <span class="bolder">Nota 3: </span>
+                            El "Voucher" emitido por este canal es válido como comprobante, ya que se obtiene directamente del Cajero Depositador.
+                        </div>
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

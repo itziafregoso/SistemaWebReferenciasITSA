@@ -1,0 +1,321 @@
+﻿@using SistemaWeb.Models
+
+@{
+    ViewBag.Title = "Generar compra";
+}
+
+<div id="carritoBloque" class="bloqueCarrito rounded shadow oculto">
+    <script>
+        const carrito = [];
+    </script>
+    @if (Session["Productos"] == null)
+    {
+        <p class="my-1 text-black">
+            No hay ningún producto en el carrito
+        </p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (Servicios prod in ViewBag.Carrito)
+            {
+                double cantidad = 0;
+                <div class="mb-2">
+                    <div class="row align-items-stretch">
+                        <div class="col text-start">
+                            @prod.nomservicio
+                        </div>
+                        <div class="col text-end">
+                            @{
+                                string link = "/Compra/Index/" + prod.contro + "?operacion=eliminar";
+                            }
+                            <a class="botonEliminarProducto" href="@link"><i class="fa-solid fa-trash-can"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-start">
+                            @foreach (Servicios original in ViewBag.ProductoOriginal)
+                            {
+
+                                if (original.contro == prod.contro)
+                                {
+                                    cantidad = (Convert.ToDouble(prod.costo) / Convert.ToDouble(original.costo));
+                                }
+                            }
+                            @cantidad producto(s)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-start">
+                            $@prod.costo
+                        </div>
+                        <div class="col">
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    carrito.push(@prod.contro);
+                </script>
+            }
+        </div>
+        <div class="my-2 mb-4 fw-bold text-end"><span>Total: </span>$@ViewBag.Total</div>
+        <a class="btn btn-rojo d-block" href="/Compra/ResumenCompra">Continuar compra</a>
+    }
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //var row;
+
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Servicios/JsonServiciosCompra")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                { "data": "nombre", "name": "nombre", "autoWidth": true },
+                { "data": "tipo", "name": "tipo", "autoWidth": true },
+                { "data": "area", "name": "area", "autoWidth": true },
+                {
+                    "data": "costo", "name": "costo", "autoWidth": true, "render":
+                        function (data) {
+                            return "$" + data.toFixed(2);
+                        },
+                    "autoWidth":true,
+                },
+                {
+                    "data": "IdServicio", "name": "IdServicio", "autoWidth": true, "render":
+                        function (data) {
+                            var encontrado = false;
+
+                            if (carrito != null) {
+                                carrito.forEach(function (element) {
+                                    if (element == data) {
+                                        encontrado = true;
+                                    }
+                                });
+                            }
+
+                            if (encontrado == false) {
+                                return "<a class='botonComprar' href='/Compra/Index/" + data + "?operacion=ver'>" + "<i class='fa-solid fa-circle-plus'></i></a>"
+                            } else {
+                                return "Añadido al carrito"
+                            }
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "autoWidth": true
+                },
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
+    });
+</script>
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch">
+        <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+            <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                <thead class="table-rojo">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo de servicio</th>
+                        <th scope="col">Área</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Comprar</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#carritoBoton").click(function () {
+        const div = document.querySelector("#carritoBloque");
+
+        if (div.classList.contains('oculto')) {
+            div.classList.remove("oculto");
+        } else {
+            div.classList.add("oculto");
+        }
+    });
+
+    $(document).ready(function () {
+        const element = document.getElementById("content");
+        var contador = 0;
+
+        element.addEventListener("click", function () {
+            const divB = document.querySelector('#carritoBloque');
+            if (divB.classList.contains('oculto') == false) {
+                if (contador == 1) {
+                    divB.classList.add("oculto");
+                    contador = 0;
+                } else {
+                    contador++;
+                }
+            }
+        });
+    });
+</script>
+
+@{
+    if (ViewBag.id != null || ViewBag.operacion == "ver")
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm text-black">
+            <div class="contenedorVentana container w-75 bg-white p-3 rounded">
+
+                <div class="d-block me-0 ms-auto">
+                    <a href="/Compra/Index">
+                        <div class="botonCerrar">
+                            <i class="fas fa-times"></i>
+                        </div>
+                    </a>
+                </div>
+
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="px-3 m-3">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <span hidden class="id" name="contro">@Model.contro</span>
+                        <span hidden class="id" name="IdArea">@Model.IdArea</span>
+                        <span hidden class="id" name="IdTS">@Model.IdTS</span>
+                        <span hidden class="id" name="Objetivo">@Model.Objetivo</span>
+                        <span hidden class="id" name="duracion">@Model.duracion</span>
+                        <span hidden class="id" name="costo">@Model.costo</span>
+                        <span hidden class="id" name="prerrequisitos">@Model.prerrequisitos</span>
+                        <span hidden class="id" name="cuetacontable">@Model.cuetacontable</span>
+                        <span hidden class="id" name="estado">@Model.estado</span>
+                        <span hidden class="id" name="diasvigencia">@Model.diasvigencia</span>
+                        <span hidden class="id" name="serviciosmaxacobrar">@Model.serviciosmaxacobrar</span>
+
+                        <h3 class="fw-bold text-rojo m-0" name="nomservicio">@Model.nomservicio</h3>
+                        <span class="negrita">Objetivo: </span><p class="d-inline" name="Objetivo">@Model.Objetivo</p>
+
+                        <div class="row align-items-center mt-3">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Tipo de servicio: @Model.TipoServicios.tipo</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Duración: @Model.duracion</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Costo: @Model.costo</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Área: @Model.Areas.nombrearea</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Días de vigencia: @Model.diasvigencia</label>
+                                </div>
+                            </div>
+                            <div class="col">
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label class="form-label normal">Prerrequisitos: @Model.prerrequisitos</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-4 w-75">
+                            <div class="col d-inline-block">
+                                <div class="mb-3">
+                                    <button type="submit" class="btn-rojo btn">Agregar al carrito</button>
+                                </div>
+                            </div>
+                            <div class="col w-fit d-inline-block">
+                                <div class="mb-3 w-fit">
+                                    <input class="w-fit" type="number" max="@Model.serviciosmaxacobrar" min="1" value="1" name="cantidad" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+
+
+@{
+    if (ViewBag.error != null)
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        <div>
+                            <h4 class="quizLabel">@ViewBag.error</h4>
+                            <div class="row">
+                                <div class="col mt-3 mb-2">
+                                    @Html.ActionLink("Aceptar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,91 @@
+﻿@model SistemaWeb.Models.PerfilesAd
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Perfiles/JsonPerfiles")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "IdPerfil", "name": "IdPerfil", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonVer' href='/Perfiles/Index/" + data + "'>" + "<i class='fa-solid fa-eye'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdPerfil", "name": "IdPerfil", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEditar' href='/Perfiles/ConfirmarPerfiles/" + data + "?op=Actualizar'>" + "<i class='fa-solid fa-pen'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdPerfil", "name": "IdPerfil", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEliminar' href='/Perfiles/ConfirmarPerfiles/" + data + "?op=Eliminar'>" + "<i class='fa-solid fa-trash'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                { "data": "nombre", "name": "nombre", "autoWidth": true },
+                { "data": "accesos", "name": "accesos", "autoWidth": true },
+                { "data": "restricciones", "name": "restricciones", "autoWidth": true },
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+<table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+    <thead class="table-rojo">
+        <tr>
+            <th scope="col" class="colBoton">Ver</th>
+            <th scope="col" class="colBoton">Editar</th>
+            <th scope="col" class="colBoton">Eliminar</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Accesos</th>
+            <th scope="col">Restricciones</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>

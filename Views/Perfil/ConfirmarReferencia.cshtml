@@ -1,0 +1,214 @@
+﻿@model SistemaWeb.Models.Referencias
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Ver Referencias";
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Perfil/JsonReferencias")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": false,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "noReferencia", "name": "noReferencia", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonVer' href='/Perfil/VerReferencias/" + data + "'>" + "<i class='fa-solid fa-eye'></i> </a>";
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "estado", "name": "estado", "autoWidth": true, "render":
+                    function (data, type, row) {
+                        if (row.estado == 'Emitida' || row.estado == 'EMITIDA') {
+                            return "<a class='botonEliminar' href='/Perfil/ConfirmarReferencia/" + row.noReferencia + "?op=Eliminar'>" + "<i class='fa-solid fa-ban'></i> </a>";
+                        } else {
+                            return "";
+                        }
+                    },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                { "data": "noReferencia", "name": "noReferencia", "autoWidth": true },
+                { "data": "estado", "name": "estado", "autoWidth": true },
+                {
+                    "data": "fechaEmision", "name": "fechaEmision", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "fechaEstado", "name": "fechaEstado", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "fechaVencimiento", "name": "fechaVencimiento", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        }
+                },
+                {
+                    "data": "monto", "name": "monto", "autoWidth": true, "render":
+                        function (data) {
+                            return "$" + data.toFixed(2);
+                        },
+                    "autoWidth": true
+                },
+                { "data": "cliente", "name": "cliente", "autoWidth": true }
+            ],
+            "order": [[2, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="reporteBtn">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            <div class="container w-100 mw-100 p-0">
+                <div class="row align-items-stretch">
+                    <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                        <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                            <thead class="table-rojo">
+                                <tr>
+                                    <th scope="col" class="colBoton">Ver</th>
+                                    <th scope="col" class="colBoton">Cancelar</th>
+                                    <th scope="col">Referencia</th>
+                                    <th scope="col">Estado</th>
+                                    <th scope="col">Fecha de emisión</th>
+                                    <th scope="col">Último estado</th>
+                                    <th scope="col">Fecha de vencimiento</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Cliente</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            <div class="bg-rojo p-1 w-50 shadow w-auto">
+                @{
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Actualizar datos de usuario</h5>
+                    }
+                    else
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Confirmación</h5>
+                    }
+                }
+
+            </div>
+            <div class="bg-white py-3 px-3">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "identicalForm1" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" value="@ViewBag.msg" name="op" />
+                    <input type="hidden" value="@ViewBag.nombre" name="id" />
+
+                    <div>
+                        @if (ViewBag.msg == "Eliminar")
+                        {
+                            <h5 class="quizLabel">¿Está seguro de cancelar la referencia <b>@(ViewBag.nombre)</b>?</h5>
+                        }
+                        else if (ViewBag.msg == "Confirmar")
+                        {
+                            <h5 class="quizLabel">¿Está seguro de actualizar el usuario <b>@(ViewBag.nombre)</b>?</h5>
+                        }
+                    </div>
+
+                    <div class="row align-items-stretch mt-2">
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Actualizar información</button>
+                                }
+                                else
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Sí</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    @Html.ActionLink("Cancelar", "VerReferencias", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("No", "VerReferencias", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

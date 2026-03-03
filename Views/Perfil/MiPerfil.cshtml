@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Mi perfil";
+}
+
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="row w-100 rounded">
+            <div class="col-6 m-auto rounded">
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Mi información de usuario</h5>
+                </div>
+                <div class="bg-white py-3 px-3">
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="normal">Nombre:</h4>
+                            <p class="normal">@ViewBag.mNombre</p>
+                        </div>
+                        <div class="col">
+                            <h4 class="normal">Iniciales:</h4>
+                            <p class="normal">@ViewBag.mInicial</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="normal">Perfil:</h4>
+                            <p class="normal">@ViewBag.mPerfil</p>
+                        </div>
+                        <div class="col">
+                            <h4 class="normal">Área administrativa:</h4>
+                            <p class="normal">@ViewBag.mArea</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <h4 class="normal">Correo electrónico:</h4>
+                            <p class="normal">@ViewBag.mCorreo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row w-100 rounded mt-5">
+                <div class="col-6 m-auto rounded">
+                    <form id="identicalForm1" class="needs-validation" novalidate method="post">
+                        <div class="bg-white py-3 px-3">
+                            <h4 class="normal">Actualizar contraseña</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="contrasena" class="form-label normal">Contraseña actual</label>
+                                        <input type="password" class="form-control" name="contrasena" id="contrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                        <div class="invalid-feedback textoLeyenda">
+                                            Incluye al menos 8 carácteres, un número y una letra mayúscula
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="confirmarcontrasena" class="form-label normal">Nueva contraseña</label>
+                                        <input type="password" class="form-control" name="confirmarcontrasena" id="confirmarcontrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
+                                        <div id="cPwdInvalid" class="invalid-feedback textoLeyenda">
+                                            Incluye al menos 8 carácteres, un número y una letra mayúscula
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="pb-2 mt-3">
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Actualizar contraseña</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        @{
+            if (ViewBag.error != null)
+            {
+                <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+                    <div class="row w-100 rounded">
+                        <div class="col-6 m-auto rounded">
+                            <div class="bg-rojo p-1 w-50 shadow w-auto">
+                                <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                            </div>
+                            <div class="bg-white py-3 px-3">
+                                <div>
+                                    <h4 class="quizLabel">@ViewBag.error</h4>
+                                    <div class="row">
+                                        <div class="col mt-3 mb-2">
+                                            @Html.ActionLink("Aceptar", "MiPerfil", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        <script>
+            $(document).ready(function () {
+                let currForm1 = document.getElementById('identicalForm1');
+
+                // Validate on submit:
+                currForm1.addEventListener('submit', function (event) {
+                    if (currForm1.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    currForm1.classList.add('was-validated');
+                }, false);
+
+
+                // Validate on input:
+                currForm1.querySelectorAll('.form-control').forEach(input => {
+                    input.addEventListener(('input'), () => {
+                        if (input.checkValidity()) {
+                            input.classList.remove('is-invalid')
+                            input.classList.add('is-valid');
+                            var correoValor = $("#correo").val();
+
+                        } else {
+                            input.classList.remove('is-valid')
+                            input.classList.add('is-invalid');
+                        }
+                    });
+                });
+            });
+        </script>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
+

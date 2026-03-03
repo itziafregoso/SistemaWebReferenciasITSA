@@ -1,0 +1,254 @@
+﻿@model SistemaWeb.Models.PerfilesAd
+
+@{
+    ViewBag.Title = "Administrar perfiles";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nuevo perfil
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_PerfilesVistaParcial")
+        </div>
+    </div>
+</div>
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-7 m-auto rounded">
+            <div class="bg-rojo p-1 w-50 shadow w-auto">
+                @{
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Actualizar datos de perfil</h5>
+                    }
+                    else
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Confirmación</h5>
+                    }
+                }
+
+            </div>
+            <div class="bg-white py-3 px-3">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "identicalForm" }))
+                {
+                    <input type="hidden" value="@ViewBag.msg" name="op" />
+                    @Html.AntiForgeryToken()
+
+                    <div>
+                        @if (ViewBag.msg == "Eliminar")
+                        {
+                            <h4 class="quizLabel">¿Está seguro de eliminar el perfil <b>@(ViewBag.nombre)</b>?</h4>
+                        }
+                        else if (ViewBag.msg == "Confirmar")
+                        {
+                            <h4 class="quizLabel">¿Está seguro de actualizar el perfil <b>@(ViewBag.nombre)</b>?</h4>
+                        }
+                    </div>
+
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IdPerfil)
+
+                        <div class="row align-items-stretch">
+                            <div class="mb-3">
+                                <label for="nombreperfil" class="form-label normal">Nombre de perfil</label>
+                                <input maxlength="25" type="text" class="form-control w-100" name="nombreperfil" value="@Model.nombreperfil" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas sin acentos
+                                </div>
+                            </div>
+
+                            <div class="row align-items-stretch">
+                                <input type="hidden" value="@ViewBag.msg" name="op" />
+
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="adminperfiles" class="form-check-label normal">Administrar perfiles</label>
+                                        @Html.EditorFor(model => model.adminperfiles, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="adminusuarios" class="form-check-label normal">Administrar usuarios</label>
+                                        @Html.EditorFor(model => model.adminusuarios, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="adminservicio" class="form-check-label normal">Administrar servicios</label>
+                                        @Html.EditorFor(model => model.adminservicio, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="subirarchivo" class="form-check-label normal">Subir archivo de pago</label>
+                                        @Html.EditorFor(model => model.subirarchivo, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="adminalumnos" class="form-check-label normal">Administrar alumnos</label>
+                                        @Html.EditorFor(model => model.adminalumnos, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="verhistorico" class="form-check-label normal">Ver histórico</label>
+                                        @Html.EditorFor(model => model.verhistorico, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+                                </div>
+
+                                <div class="col">
+
+                                    <div class="mb-3">
+                                        <label for="verservicios" class="form-check-label normal">Ver servicios</label>
+                                        @Html.EditorFor(model => model.verservicios, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="administrarareas" class="form-check-label normal">Administrar áreas</label>
+                                        @Html.EditorFor(model => model.administrarareas, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="admintiposervicios" class="form-check-label normal">Administrar tipos de servicios</label>
+                                        @Html.EditorFor(model => model.admintiposervicios, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="adminparametros" class="form-check-label normal">Opciones de sistema</label>
+                                        @Html.EditorFor(model => model.adminparametros, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="veralumnos" class="form-check-label normal">Ver alumnos</label>
+                                        @Html.EditorFor(model => model.veralumnos, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="restaurarsistema" class="form-check-label normal">Restaurar sistema</label>
+                                        @Html.EditorFor(model => model.restaurarsistema, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                </div>
+
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="bitacoraeventos" class="form-check-label normal">Bitácora de eventos</label>
+                                        @Html.EditorFor(model => model.bitacoraeventos, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="verreferencias" class="form-check-label normal">Ver referencias</label>
+                                        @Html.EditorFor(model => model.verreferencias, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="generarcompra" class="form-check-label normal">Generar compra</label>
+                                        @Html.EditorFor(model => model.generarcompra, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="adminadareas" class="form-check-label normal">Administrar áreas administrativas</label>
+                                        @Html.EditorFor(model => model.adminadareas, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="subiralumnos" class="form-check-label normal">Cargar alumnos</label>
+                                        @Html.EditorFor(model => model.subiralumnos, new { htmlAttributes = new { @class = "form-check-input" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Actualizar información</button>
+                                }
+                                else
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Sí</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    @Html.ActionLink("Cancelar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("No", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+
+        function convertirMayuscula(e) {
+            e.value = e.value.toUpperCase();
+            if (e.checkValidity()) {
+                e.classList.remove('is-invalid')
+                e.classList.add('is-valid');
+
+            } else {
+                e.classList.remove('is-valid')
+                e.classList.add('is-invalid');
+            }
+        }
+
+        $(document).ready(function () {
+            let currForm1 = document.getElementById('identicalForm');
+
+            // Validate on submit:
+            currForm1.addEventListener('submit', function (event) {
+                if (currForm1.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                currForm1.classList.add('was-validated');
+            }, false);
+
+
+            // Validate on input:
+            currForm1.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener(('input'), () => {
+                    if (input.checkValidity()) {
+                        input.classList.remove('is-invalid')
+                        input.classList.add('is-valid');
+
+                    } else {
+                        input.classList.remove('is-valid')
+                        input.classList.add('is-invalid');
+                    }
+                });
+            });
+
+
+            const boton = document.querySelector("#agUsuario");
+            // Agregar listener
+            boton.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.remove("noVisible");
+            });
+
+        });
+    </script>
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

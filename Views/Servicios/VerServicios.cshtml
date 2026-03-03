@@ -1,0 +1,173 @@
+﻿@model SistemaWeb.Models.Servicios
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Ver Servicios";
+}
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Servicios/JsonServicios")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                { "data": "nombre", "name": "nombre", "autoWidth": true },
+                { "data": "tipo", "name": "tipo", "autoWidth": true },
+                { "data": "area", "name": "area", "autoWidth": true },
+                {
+                    "data": "costo", "name": "costo", "autoWidth": true, "render":
+                        function (data) {
+                            return "$" + data.toFixed(2);
+                        },
+                    "autoWidth": true
+                },
+                { "data": "maxcobrar", "name": "maxcobrar", "autoWidth": true },
+                { "data": "cuentacontable", "name": "cuentacontable", "autoWidth": true },
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="reporteBtn">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            <div class="container w-100 mw-100 p-0">
+                <div class="row align-items-stretch">
+                    <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                        <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                            <thead class="table-rojo">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Tipo de servicio</th>
+                                    <th scope="col">Área</th>
+                                    <th scope="col">Costo</th>
+                                    <th scope="col">Máximo a cobrar</th>
+                                    <th scope="col">Cuenta contable</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="reporteForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            @using (Html.BeginForm("GenerarReporte", "Servicios"))
+            {
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Generar reporte Excel</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="estadoRep" class="form-label normal">Estado de servicio:</label>
+                                <select id="estadoRep" class="form-control form-select" name="estadoRep">
+                                    <option value="">TODOS</option>
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="perfilRep" class="form-label normal">Tipo de área:</label>
+                                @Html.DropDownList("areaRep", (IEnumerable<SelectListItem>)ViewBag.IdArea, "TODAS", htmlAttributes: new { @class = "form-control form-select" })
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="areaRep" class="form-label normal">Tipo de servicio:</label>
+                                @Html.DropDownList("servicioRep", (IEnumerable<SelectListItem>)ViewBag.IdTS, "TODOS", htmlAttributes: new { @class = "form-control form-select" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="col">
+                                <div class="pb-2 mt-3">
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Descargar Excel</button>
+                                    <a id="reporteClose" class="btn-rojo btn float-end">Cerrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const btnDos = document.querySelector("#reporteBtn");
+        // Agregar listener
+        btnDos.addEventListener("click", function (evento) {
+            var elementDos = document.getElementById("reporteForm");
+            elementDos.classList.remove("noVisible");
+        });
+
+        const botonCerrar2 = document.querySelector("#reporteClose");
+        // Agregar listener
+        botonCerrar2.addEventListener("click", function (evento) {
+            var element2 = document.getElementById("reporteForm");
+            element2.classList.add("noVisible");
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

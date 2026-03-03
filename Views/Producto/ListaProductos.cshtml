@@ -1,0 +1,34 @@
+﻿@using SistemaWeb.Models
+@{
+    ViewBag.Title = "ListaProductos";
+}
+
+<h2>ListaProductos</h2>
+
+@Html.ActionLink("Ver carrito de compra","ProductoCarrito","Producto")<br />
+
+<table class="table table-striped">
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Comprar</th>
+    </tr>
+    @foreach (Producto prod in Model)
+    {
+        <tr>
+            <td>@prod.nombre</td>
+            <td>@prod.Precio</td>
+            <td>@prod.tipoServicio</td>
+            @if (ViewBag.Carrito != null && ViewBag.Carrito.Contains(prod.IdProducto))
+             {
+                <td><span>Añadido al carrito</span></td>
+             }
+             else
+             {
+                <td>@Html.ActionLink("Añadir al carrito","ListaProductos","Producto", new {id = prod.IdProducto}, new {@class="btn btn-primary"})</td>
+             }
+        </tr>
+    }
+</table>
+

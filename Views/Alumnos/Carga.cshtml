@@ -1,0 +1,57 @@
+﻿@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Cargar alumnos";
+}
+
+@if(ViewBag.error != null) { 
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.error
+        </div>
+    </div>
+}
+
+<div class="row align-items-stretch mx-5 mt-3">
+    <div class="col">
+        <ul class="lineaArbol">
+            <li class="text-rojo textoLeyenda">
+                Cargar nuevos alumnos
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5">
+        <div class="col">
+            <div class="w-50 mx-auto text-center">
+                <i class="fa-solid fa-file-arrow-up iconTitle"></i>
+            </div>
+
+            @using (Html.BeginForm("Carga", "Alumnos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div>
+                    <input class="d-block mx-auto form-control w-50" type="file" name="archivoAlumnos" accept=".csv" required />
+                </div>
+
+                if (ViewBag.mensaje != null)
+                {
+                    <div class="alert alert-danger w-50 mx-auto mt-3 normal" role="alert">
+                        @ViewBag.mensaje
+                    </div>
+                }
+                <div class="d-block m-auto mt-4">
+                    <input class="btn btn-rojo w-50 mx-auto d-block" type="submit" value="Cargar" />
+                </div>
+                <a class="card-link link-template" href="/Alumnos/Exportar">
+                    Descargar plantilla
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,162 @@
+﻿@model SistemaWeb.Models.Areas
+
+@{
+    ViewBag.Title = "Administrar áreas";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-5">
+        <div class="col-3">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nueva área
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_AreasVistaParcial")
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            <div class="bg-rojo p-1 w-50 shadow w-auto">
+                @{
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Actualizar datos de área</h5>
+                    }
+                    else
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Confirmación</h5>
+                    }
+                }
+
+            </div>
+            <div class="bg-white py-3 px-3">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "identicalForm1" }))
+                {
+                    <input type="hidden" value="@ViewBag.msg" name="op" />
+                    @Html.AntiForgeryToken()
+
+                    <div>
+                        @if (ViewBag.msg == "Eliminar")
+                        {
+                            <h4 class="quizLabel">¿Está seguro de eliminar el área <b>@(ViewBag.nombre)</b>?</h4>
+                        }
+                        else if (ViewBag.msg == "Confirmar")
+                        {
+                            <h4 class="quizLabel">¿Está seguro de actualizar el área <b>@(ViewBag.nombre)</b>?</h4>
+                        }
+                    </div>
+
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IdArea)
+                        <div class="dosColumnas">
+                            <input type="hidden" value="@ViewBag.msg" name="op" />
+
+                            <div class="row align-items-stretch mt-4">
+                                <div class="col">
+                                    <div class="mb-2">
+                                        <label for="nombrearea" class="form-label normal">Nombre de área</label>
+                                        <input maxlength="30" type="text" class="form-control" name="nombrearea" value="@Model.nombrearea" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus  onkeyup="convertirMayuscula(this);"/>
+                                        <div class="invalid-feedback">
+                                            Utiliza solo letras MAYUSCULAS y espacios
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row align-items-stretch mt-2">
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Actualizar información</button>
+                                }
+                                else
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Sí</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    @Html.ActionLink("Cancelar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("No", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function convertirMayuscula(e) {
+        e.value = e.value.toUpperCase();
+        if (e.checkValidity()) {
+            e.classList.remove('is-invalid')
+            e.classList.add('is-valid');
+
+        } else {
+            e.classList.remove('is-valid')
+            e.classList.add('is-invalid');
+        }
+    }
+
+    $(document).ready(function () {
+
+        let currForm1 = document.getElementById('identicalForm1');
+        // Validate on submit:
+        currForm1.addEventListener('submit', function (event) {
+            if (currForm1.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currForm1.classList.add('was-validated');
+        }, false);
+
+
+        // Validate on input:
+        currForm1.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener(('input'), () => {
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid')
+                    input.classList.add('is-valid');
+                    var correoValor = $("#correo").val();
+
+                } else {
+                    input.classList.remove('is-valid')
+                    input.classList.add('is-invalid');
+                }
+            });
+        });
+
+        const boton = document.querySelector("#agUsuario");
+        // Agregar listener
+        boton.addEventListener("click", function (evento) {
+            var element = document.getElementById("agUsuarioForm");
+            element.classList.remove("noVisible");
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

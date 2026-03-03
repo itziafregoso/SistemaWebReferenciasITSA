@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Tablero";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+
+        @{
+            List<String> dato = (List<String>)Session["Permisos"];
+        }
+
+        @{
+            if (dato.Contains("adminusuarios") == true)
+            {
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa-solid fa-users"></i> Usuarios</h5>
+                            <p class="card-text">@Session["UsuariosActivos"] Usuarios registrados</p>
+                            <a href="/Usuarios" class="btn btn-rojo">Ver más detalles</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            if (dato.Contains("adminservicio") == true)
+            {
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa-solid fa-tag"></i> Servicios</h5>
+                            <p class="card-text">@Session["ServiciosReg"] Servicios registrados</p>
+                            <a href="/Servicios" class="btn btn-rojo">Ver más detalles</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            if (dato.Contains("verreferencias") == true)
+            {
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa-solid fa-scroll"></i> Referencias</h5>
+                            <p class="card-text">@Session["ReferenciaGen"] Referencias generadas</p>
+                            <a href="/Perfil/VerReferencias" class="btn btn-rojo">Ver más detalles</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

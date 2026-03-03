@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/7e4f3ba061.js" crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    @{
+        if (ViewBag.Title == "Iniciar sesión" || ViewBag.Title == "Orden de cobro")
+        {
+            @RenderBody()
+        }
+        else if (@Session["Permisos"] != null)
+        {
+            <div class="wrapper">
+                <!-- Sidebar  -->
+                <nav id="sidebar" class="active">
+                    <div class="sidebar-header">
+                        <div class="d-inline-block bloqueIcon">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </div>
+                        <div class="d-inline-block datosUsuario">
+                            <a href="/Perfil/MiPerfil"><h2 class="d-block normal fw-bold m-0">@Session["NombreUser"]</h2></a>
+                            <span class="normal d-block fw-light">@Session["Rol"]</span>
+                        </div>
+                    </div>
+
+                    <ul class="list-unstyled components">
+
+                        @{
+                            List<String> dato = (List<String>)Session["Permisos"];
+                        }
+
+                        <li><a class="nav-link" href="/Perfil">Inicio</a></li>
+
+                        @{
+
+                            if (dato.Contains("adminusuarios") == true || dato.Contains("adminperfiles") == true)
+                            {
+                                <li class="nav-item has-submenu principal">
+                                    <a href="#pageSubmenu" aria-expanded="false" class="nav-link">Usuarios</a>
+                                    <ul class="submenu collapse">
+                                        @if (dato.Contains("adminusuarios") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar usuarios" class="nav-link" href="/Usuarios">Administrar usuarios</a></li>
+                                        }
+                                        @if (dato.Contains("adminperfiles") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar perfiles" class="nav-link" href="/Perfiles">Administrar perfiles</a></li>
+                                        }
+                                        @if (dato.Contains("adminadareas") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar áreas administrativas" class="nav-link" href="/AreasAdministrativas">Administrar áreas administrativas</a> </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+                        @{ if (dato.Contains("adminalumnos") == true || dato.Contains("veralumnos") == true || dato.Contains("subiralumnos") == true)
+                            {
+                                <li class="nav-item has-submenu principal">
+                                    <a href="#pageSubmenu" aria-expanded="false" class="nav-link">Alumnos</a>
+                                    <ul class="submenu collapse">
+                                        @if (dato.Contains("adminalumnos") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar alumnos" class="nav-link" href="/Alumnos/">Administrar alumnos</a></li>
+                                        }
+                                        @if (dato.Contains("veralumnos") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Ver alumnos" class="nav-link" href="/Alumnos/VerAlumnos">Ver alumnos</a></li>
+                                        }
+                                        @if (dato.Contains("subiralumnos") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Cargar alumnos" class="nav-link" href="/Alumnos/Carga">Cargar alumnos</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+                        @{
+                            if (dato.Contains("adminservicio") == true || dato.Contains("verservicios") == true || dato.Contains("administrarareas") == true || dato.Contains("admintiposervicios") == true)
+                            {
+                                <li class="nav-item has-submenu principal">
+                                    <a href="#pageSubmenu" aria-expanded="false" class="nav-link">Servicios</a>
+                                    <ul class="submenu collapse">
+                                        @if (dato.Contains("adminservicio") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar servicios" class="nav-link" href="/Servicios">Administrar servicios</a></li>
+                                        }
+                                        @if (dato.Contains("verservicios") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Ver servicios" class="nav-link" href="/Servicios/VerServicios">Ver servicios</a></li>
+                                        }
+                                        @if (dato.Contains("administrarareas") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar áreas" class="nav-link" href="/Areas">Administrar áreas</a></li>
+                                        }
+                                        @if (dato.Contains("admintiposervicios") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Administrar tipos de servicio" class="nav-link" href="/TipoServicio">Administrar tipos de servicio</a> </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+                        @{
+                            if (dato.Contains("verreferencias") == true || dato.Contains("subirarchivo") == true || dato.Contains("generarcompra") == true)
+                            {
+                                <li class="nav-item has-submenu principal">
+                                    <a href="#pageSubmenu" aria-expanded="false" class="nav-link">Referencias</a>
+                                    <ul class="submenu collapse">
+                                        @if (dato.Contains("verreferencias") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Ver referencias" class="nav-link" href="/Perfil/VerReferencias">Ver referencias</a></li>
+                                        }
+                                        @if (dato.Contains("subirarchivo") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Subir archivos de pago" class="nav-link" href="/Perfil/ArchivoPago">Subir archivos de pago</a></li>
+                                        }
+                                        @if (dato.Contains("generarcompra") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Generar compra" class="nav-link" href="/Compra">Generar compra</a> </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+
+                        @{
+                            if (dato.Contains("bitacoraeventos") == true || dato.Contains("adminparametros") == true || dato.Contains("verhistorico") == true || dato.Contains("restaurarsistema") == true)
+                            {
+                                <li class="nav-item has-submenu principal">
+                                    <a href="#pageSubmenu" aria-expanded="false" class="nav-link">Administrar</a>
+                                    <ul class="submenu collapse">
+                                        @if (dato.Contains("bitacoraeventos") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Bitácora de eventos" class="nav-link" href="/Perfil/BitacoraEventos">Bitácora de eventos</a></li>
+                                        }
+                                        @if (dato.Contains("adminparametros") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Opciones de sistema" class="nav-link" href="/Perfil/ParametrosSistema">Opciones de sistema</a></li>
+                                        }
+                                        @if (dato.Contains("verhistorico") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Consultar histórico" class="nav-link" href="/Historico/Index">Consultar histórico</a></li>
+                                        }
+                                        @if (dato.Contains("restaurarsistema") == true)
+                                        {
+                                            <li><a data-toggle="tooltip" data-placement="top" title="Restaurar sistema" class="nav-link" href="/Respaldo/Restaurar">Restaurar sistema</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+
+
+
+                    <ul class="list-unstyled components position-absolute bottom-0 w-100 m-0 border-0">
+                        <li><a class="nav-link" href="/Home/Logout">Cerrar sesión</a></li>
+                    </ul>
+
+                </nav>
+
+                <!-- Page Content  -->
+                <div id="content">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light bg-rojo">
+                        <div class="container-fluid justify-content-start">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info">
+                                <i class="fa-solid fa-bars"></i>
+                            </button>
+                            <div class="start-0 text-start px-4">
+                                <h4 class="m-0 fw-bold text-white">@ViewBag.Title</h4>
+                            </div>
+                        </div>
+                        @{
+                            if (ViewBag.Title == "Generar compra")
+                            {
+                                <div class="end-0 text-end px-4">
+                                    <a id="carritoBoton" class="icon-shop">
+                                        <i class="fas fa-shopping-cart text-white"></i>
+                                    </a>
+                                </div>
+                            }
+                        }
+                        <div class="logoInstitucional text-end py-2">
+                            <img src="~/Content/img/itsalogo.png" />
+                        </div>
+                    </nav>
+
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+
+        }
+    }
+
+    @{
+        if (ViewBag.Title != "Iniciar sesión")
+        {
+            <script>
+                $(document).ready(function () {
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+
+                    $(function () {
+                        $('[data-toggle="tooltip"]').tooltip()
+                    })
+                });
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.querySelectorAll('.nav-link').forEach(function (element) {
+
+                        element.addEventListener('click', function (e) {
+
+                            let nextEl = element.nextElementSibling;
+                            let parentEl = element.parentElement;
+
+                            if (nextEl) {
+                                e.preventDefault();
+                                let mycollapse = new bootstrap.Collapse(nextEl);
+
+                                if (nextEl.classList.contains('show')) {
+                                    mycollapse.hide();
+                                } else {
+                                    mycollapse.show();
+                                    // find other submenus with class=show
+                                    var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+                                    // if it exists, then close all of them
+                                    if (opened_submenu) {
+                                        new bootstrap.Collapse(opened_submenu);
+                                    }
+                                }
+                            }
+
+                            if (parentEl) {
+                                $('.principal').removeClass("active");
+
+                                var child = parentEl.lastElementChild;
+
+                                if (child.clientHeight == 0) {
+                                    parentEl.classList.add('active');
+                                }
+                            }
+                        }); // addEventListener
+                    }) // forEach
+                });
+            </script>
+        }
+    }
+
+
+
+    <style>
+        :root {
+            --colorPrimario: @Session["colorPrimario"];
+            --colorPrimarioAl: @Session["colorPrimarioAl"];
+            --colorSecundario: @Session["colorSecundario"];
+
+            --colorTitulos: @Session["colorTitulos"];
+            --colorTexto: @Session["colorTexto"];
+
+            --colorBVer: @Session["colorBVer"];
+            --colorBVerAl: @Session["colorBVerAl"];
+            --colorBEditar: @Session["colorBEditar"];
+            --colorBEditarAl: @Session["colorBEditarAl"];
+            --colorBEliminar: @Session["colorBEliminar"];
+            --colorBEliminarAl: @Session["colorBEliminarAl"];
+            --colorBComprar: @Session["colorBComprar"];
+            --colorBComprarAl: @Session["colorBComprarAl"];
+        }
+    </style>
+
+    @if (ViewBag.Title != "Iniciar sesión" && ViewBag.Title != "Orden de cobro")
+    {
+        <script>
+            $(document).ready(function () {
+                const element = document.getElementById("content");
+                var contador = 0;
+
+                element.addEventListener("click", function () {
+                    const div = document.querySelector('#sidebar');
+                    if (div.classList.contains('active') == false) {
+                        if (contador == 1) {
+                            div.classList.add("active");
+                            contador = 0;
+                        } else {
+                            contador++;
+                        }
+                    }
+                });
+            });
+        </script>
+    }
+
+
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.4/datatables.min.css" />
+</body>
+</html>

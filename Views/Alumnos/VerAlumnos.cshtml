@@ -1,0 +1,80 @@
+﻿@model SistemaWeb.Models.Servicios
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Ver Alumnos";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //var row;
+
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Alumnos/JsonAlumnos")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {"data":"nombre_","name":"nombre_","autoWidth":true},
+                {"data":"matricula","name":"matricula","autoWidth":true},
+            ],
+            "order": [[0, "asc"]],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            <div class="container w-100 mw-100 p-0">
+                <div class="row align-items-stretch">
+                    <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                        <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                            <thead class="table-rojo">
+                                <tr>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Matrícula</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

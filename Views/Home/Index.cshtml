@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Iniciar sesión";
+}
+
+<div class="contenedorForm contenedorLogin">
+    <div class="container w-50 bg-rojo rounded shadow">
+        <div class="row align-items-stretch ">
+            <div class="col bg-white p-5 pb-2 rounded-end">
+                <div class="text-center">
+                    <img src="~/Content/img/n_logoITSA.png" width="40%" alt="" class="mb-4"/>
+                </div>
+
+                <form action="/Home/Login" method="post" class="mb-5">
+                    <div class="mb-4">
+                        <label for="email" class="form-label normal">Correo electrónico</label>
+                        <input type="email" class="form-control" name="email" />
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label normal">Contraseña</label>
+                        <input type="password" class="form-control" name="password" />
+                    </div>
+                    <input type="hidden" name="intentos" value="@ViewBag.intentos" />
+
+                    @{
+                        if (ViewBag.Error != null && ViewBag.intentos > 1)
+                        {
+                            <div class="mb-4">
+                                <div class="alert alert-danger normal" role="alert"> @ViewBag.Error </div>
+                            </div>
+                        }
+                        if (ViewBag.Intentos <= 1)
+                        {
+                            <div class="mb-4">
+                                <div class="alert alert-danger normal" role="alert">Contacta al administrador para recuperar los datos de usuario.</div>
+                            </div>
+                        }
+                    }
+
+                    @{
+                        if (ViewBag.intentos > 1)
+                        {
+                            <div class="d-grid">
+                                <button type="submit" class="btn-rojo btn">Iniciar sesión</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="d-grid">
+                                <button disabled type="submit" class="btn-rojo btn">Iniciar sesión</button>
+                            </div>
+                        }
+                    }
+                </form>
+
+
+                <div class="mb-3">
+                    <label class="form-label text-end small textoLeyenda w-100">Versión 2.0 | Sistema de Ingresos Propios ITSA</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

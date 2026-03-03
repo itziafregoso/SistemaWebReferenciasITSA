@@ -1,0 +1,246 @@
+﻿@model SistemaWeb.Models.UsuariosAd
+
+@{
+    ViewBag.Title = "Administrar usuarios";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nuevo usuario
+            </a>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_UsuariosVistaParcial")
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            <div class="bg-rojo p-1 w-50 shadow w-auto">
+                @{
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Actualizar datos de usuario</h5>
+                    }
+                    else
+                    {
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Confirmación</h5>
+                    }
+                }
+
+            </div>
+            <div class="bg-white py-3 px-3">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "identicalForm1" }))
+                {
+                    <input type="hidden" value="@ViewBag.msg" name="op" />
+                    @Html.AntiForgeryToken()
+
+                    <div>
+                        @if (ViewBag.msg == "Eliminar")
+                        {
+                            <h5 class="quizLabel">¿Está seguro de eliminar el usuario <b>@(ViewBag.nombre)</b>?</h5>
+                        }
+                        else if (ViewBag.msg == "Confirmar")
+                        {
+                            <h5 class="quizLabel">¿Está seguro de actualizar el usuario <b>@(ViewBag.nombre)</b>?</h5>
+                        }
+                    </div>
+
+                    if (ViewBag.msg == "Actualizar")
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.IdUsuariosAd)
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label normal">Nombre</label>
+                                    <input maxlength="30" type="text" class="form-control" name="nombre" value="@Model.nombre" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                                    <div class="invalid-feedback textoLeyenda">
+                                        Solo se admiten letras mayúsculas sin acentos
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3 mt-5">
+                                    <label for="estado" class="form-check-label normal">Usuario activo</label>
+                                    @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-check-input" } })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row align-items-stretch">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="iniciales" class="form-label normal">Iniciales</label>
+                                    <input maxlength="4" type="text" class="form-control" name="iniciales" value="@Model.iniciales" pattern="([A-Z])+" required onkeyup="convertirMayuscula(this);" />
+                                    <div class="invalid-feedback textoLeyenda">
+                                        Solo se admiten letras mayúsculas sin acentos
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="IdPerfil" class="form-label normal">Perfil</label>
+                                    @Html.DropDownList("IdPerfil",null, htmlAttributes: new { @class = "form-control form-select" })
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="contrasena" class="form-label normal">Contraseña</label>
+                                    <input maxlength="20" type="password" class="form-control" name="contrasena" id="contrasena" value="@Model.contrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                    <div class="invalid-feedback textoLeyenda">
+                                        Incluye al menos 8 carácteres, un número y una letra mayúscula
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="row align-items-stretch">
+                                    <div class="col">
+                                        @{
+                                            var txt = "([A-Za-z0-9]+[._]*[A-Za-z0-9]*)+(@itsatlixco.edu.mx)";
+                                        }
+                                        <div class="mb-3">
+                                            <label for="correoelectronico" class="form-label normal">Correo electrónico</label>
+                                            <input maxlength="60" type="text" class="form-control" name="correoelectronico" value="@Model.correoelectronico" pattern="@txt" required />
+                                            <div class="invalid-feedback textoLeyenda">
+                                                Ingresa un correo electrónico institucional
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="IdAreaAd" class="form-label normal">Área administrativa</label>
+                                            @Html.DropDownList("IdAreaAd", null, htmlAttributes: new { @class = "form-control form-select" })
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="contrasena" class="form-label normal">Confirmar contraseña</label>
+                                            <input maxlength="20" type="password" value="@Model.contrasena" class="form-control" name="confirmarcontrasena" id="confirmarcontrasena" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                            <div id="cPwdInvalid" class="invalid-feedback textoLeyenda">
+                                                Las contraseñas no coinciden
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            $(document).ready(function () {
+                                document.getElementById("IdPerfil").value = @Model.IdPerfil;
+                                document.getElementById("IdAreaAd").value = @Model.IdAreaAd;
+                            });
+                        </script>
+                    }
+
+                    <div class="row align-items-stretch mt-2">
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Actualizar información</button>
+                                }
+                                else
+                                {
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Sí</button>
+                                }
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="pb-2 mt-4">
+                                @if (ViewBag.msg == "Actualizar")
+                                {
+                                    @Html.ActionLink("Cancelar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("No", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-0 w-fit" })
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function convertirMayuscula(e) {
+        e.value = e.value.toUpperCase();
+        if (e.checkValidity()) {
+            e.classList.remove('is-invalid')
+            e.classList.add('is-valid');
+
+        } else {
+            e.classList.remove('is-valid')
+            e.classList.add('is-invalid');
+        }
+    }
+
+    $(document).ready(function () {
+        let currForm1 = document.getElementById('identicalForm1');
+
+        $("#contrasena, #confirmarcontrasena").on("keyup", function () {
+            // store the `newPassword` and `confirmPassword` in two variables
+            var newPasswordValue = $("#contrasena").val();
+            var confirmPasswordValue = $("#confirmarcontrasena").val();
+
+            if (newPasswordValue.length > 0 && confirmPasswordValue.length > 0) {
+                if (confirmPasswordValue !== newPasswordValue) {
+                    $("#confirmarcontrasena").addClass('is-invalid');
+                }
+                if (confirmPasswordValue === newPasswordValue) {
+                    $("#confirmarcontrasena").addClass('is-valid');
+                }
+            }
+        });
+
+        // Validate on submit:
+        currForm1.addEventListener('submit', function (event) {
+            if (currForm1.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currForm1.classList.add('was-validated');
+        }, false);
+
+
+        // Validate on input:
+        currForm1.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener(('input'), () => {
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid')
+                    input.classList.add('is-valid');
+                    var correoValor = $("#correo").val();
+
+                } else {
+                    input.classList.remove('is-valid')
+                    input.classList.add('is-invalid');
+                }
+            });
+        });
+
+        const boton = document.querySelector("#agUsuario");
+        // Agregar listener
+        boton.addEventListener("click", function (evento) {
+            var element = document.getElementById("agUsuarioForm");
+            element.classList.remove("noVisible");
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

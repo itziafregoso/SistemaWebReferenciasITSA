@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Opciones de sistema";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch">
+        <div class="col col-3">
+            <div class="mb-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Agregar nuevo día inhábil</h5>
+                    </div>
+
+                    <input type="hidden" name="operacion" value="registrarDiaHabil" />
+
+                    <div class="bg-white py-3 px-3">
+                        <div class="mb-3">
+                            <label for="fechaHabil" class="form-label normal">Fecha</label>
+                            <input type="date" class="form-control" name="fechaHabil" />
+                        </div>
+                        <div class="pb-2">
+                            <button type="submit" class="btn-rojo btn">Añadir nuevo día</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div>
+                @Html.Partial("_VistaHorarios")
+            </div>
+        </div>
+        <div class="col col-4">
+            <div class="bg-white">
+                <div class="bg-rojo p-1 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Modificar colores</h5>
+                </div>
+                @using (Html.BeginForm())
+                {
+                    <input type="hidden" name="operacion" value="cambiarColor" />
+                    <input type="date" class="form-control" name="fechaHabil" value="@DateTime.Now.Date" hidden />
+                    @Html.AntiForgeryToken()
+
+                    <div class="bg-white py-3 px-3">
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="row">
+                                    <h5 class="text-start normal">Colores de texto</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorTitulos" class="form-label normal">Títulos</label>
+                                                <input type="color" id="colorTitulos" class="form-control" name="colorTitulos" value="@Session["colorTitulos"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorTexto" class="form-label normal">Textos</label>
+                                                <input type="color" id="colorTexto" class="form-control" name="colorTexto" value="@Session["colorTexto"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h5 class="text-start normal">Colores de tema</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorPrimario" class="form-label normal">Color principal</label>
+                                                <input type="color" id="colorPrimario" class="form-control" name="colorPrimario" value="@Session["colorPrimario"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorPrimarioAl" class="form-label normal">Color alterno</label>
+                                                <input type="color" id="colorPrimarioAl" class="form-control" name="colorPrimarioAl" value="@Session["colorPrimarioAl"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="mb-3">
+                                            <label for="colorSecundario" class="form-label normal">Color secundario</label>
+                                            <input type="color" id="colorSecundario" class="form-control" name="colorSecundario" value="@Session["colorSecundario"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h5 class="text-start normal">Colores de botones</h5>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBEliminar" class="form-label normal">Botón eliminar</label>
+                                                <input type="color" id="colorBEliminar" class="form-control" name="colorBEliminar" value="@Session["colorBEliminar"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBEliminarAl" class="form-label normal">Color alterno</label>
+                                                <input type="color" id="colorBEliminarAl" class="form-control" name="colorBEliminarAl" value="@Session["colorBEliminarAl"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBVer" class="form-label normal">Botón ver</label>
+                                                <input type="color" class="form-control" id="colorBVer" name="colorBVer" value="@Session["colorBVer"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBVerAl" class="form-label normal">Color alterno</label>
+                                                <input type="color" class="form-control" id="colorBVerAl" name="colorBVerAl" value="@Session["colorBVerAl"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBEditar" class="form-label normal">Botón editar</label>
+                                                <input type="color" id="colorBEditar" class="form-control" name="colorBEditar" value="@Session["colorBEditar"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBEditarAl" class="form-label normal">Color alterno</label>
+                                                <input type="color" id="colorBEditarAl" class="form-control" name="colorBEditarAl" value="@Session["colorBEditarAl"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBComprar" class="form-label normal">Botón comprar</label>
+                                                <input type="color" id="colorBComprar" class="form-control" name="colorBComprar" value="@Session["colorBComprar"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="colorBComprarAl" class="form-label normal">Color alterno</label>
+                                                <input type="color" id="colorBComprarAl" class="form-control" name="colorBComprarAl" value="@Session["colorBComprarAl"]" style="height:2rem; width:4rem; margin:0 auto" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pb-2 px-3 mt-3">
+                            <button type="submit" class="btn-rojo btn">Actualizar colores</button>
+                            <a id="resColor" class="btn-rojo btn float-end">Restablecer colores</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-5">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Parámetros de sistema</h5>
+                    </div>
+
+                    <input type="date" class="form-control" name="fechaHabil" value="@DateTime.Now.Date" hidden />
+                    <input type="hidden" name="operacion" value="parametrosSistema" />
+
+                    <div class="bg-white py-3 px-3">
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="numCuenta" class="form-label normal">Número cuenta</label>
+                                <input type="text" maxlength="10" class="form-control" name="numCuenta" value="@Session["numCuenta"]" required />
+                            </div>
+                            <div class="col mb-3">
+                                <label for="cuenClave" class="form-label normal">Cuenta CLABE</label>
+                                <input type="text" maxlength="18" class="form-control" name="cuenClave" value="@Session["cuenClave"]" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="nomBuzon" class="form-label normal">Nombre buzón</label>
+                                <input type="text" maxlength="10" class="form-control" name="nomBuzon" value="@Session["nomBuzon"]" required />
+                            </div>
+                            <div class="col mb-3">
+                                <label for="constanteRef" class="form-label normal">Constante de referencias</label>
+                                <input type="text" maxlength="1" class="form-control" name="constanteRef" value="@Session["constanteRef"]" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label for="numRap" class="form-label normal">Número RAP</label>
+                                <input type="text" maxlength="4" class="form-control" name="numRap" value="@Session["numRap"]" required />
+                            </div>
+                            <div class="col mb-3">
+                            </div>
+                        </div>
+
+
+                        <div class="pb-2">
+                            <button type="submit" class="btn-rojo btn">Actualizar parámetros</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{
+    if (ViewBag.error != null)
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        <div>
+                            <h4 class="quizLabel">@ViewBag.error</h4>
+                            <div class="row">
+                                <div class="col mt-3 mb-2">
+                                    @Html.ActionLink("Aceptar", "ParametrosSistema", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+<script>
+    $(document).ready(function () {
+        const botonColor = document.querySelector("#resColor");
+        // Agregar listener
+        botonColor.addEventListener("click", function (evento) {
+            document.getElementById('colorPrimario').value = '#9D2449';
+            document.getElementById('colorPrimarioAl').value = '#8D183C';
+            document.getElementById('colorSecundario').value = '#D32B2B';
+
+            document.getElementById('colorTitulos').value = '#FFFFFF';
+            document.getElementById('colorTexto').value = '#000000';
+
+            document.getElementById('colorBVer').value = '#2DAA86';
+            document.getElementById('colorBVerAl').value = '#1B8586';
+            document.getElementById('colorBEditar').value = '#F77F00';
+            document.getElementById('colorBEditarAl').value = '#CE6000';
+            document.getElementById('colorBEliminar').value = '#E0373C';
+            document.getElementById('colorBEliminarAl').value = '#A71B1F';
+            document.getElementById('colorBComprar').value = '#1B72DE';
+            document.getElementById('colorBComprarAl').value = '#2D4AB9';
+        });
+    });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

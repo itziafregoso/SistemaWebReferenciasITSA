@@ -1,0 +1,117 @@
+﻿@model SistemaWeb.Models.Servicios
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Servicios/JsonServicios")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "IdServicio", "name": "IdServicio", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonVer' href='/Servicios/Index/" + data + "'>" + "<i class='fa-solid fa-eye'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdServicio", "name": "IdServicio", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEditar' href='/Servicios/ConfirmarServicio/" + data + "?op=Actualizar'>" + "<i class='fa-solid fa-pen'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdServicio", "name": "IdServicio", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEliminar' href='/Servicios/ConfirmarServicio/" + data + "?op=Eliminar'>" + "<i class='fa-solid fa-trash'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "estado", "name": "estado", "autoWidth": true, "render":
+                        function (data) {
+                            if (data == 1) {
+                                return "<span class='badge bg-success'>Activo</span>";
+                            } else {
+                                return "<span class='badge bg-danger'>Inactivo</span>";
+                            }
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "autoWidth": true
+                },
+                { "data": "nombre", "name": "nombre", "autoWidth": true },
+                { "data": "tipo", "name": "tipo", "autoWidth": true },
+                { "data": "area", "name": "area", "autoWidth": true },
+                {
+                    "data": "costo", "name": "costo", "autoWidth": true, "render":
+                        function (data) {
+                            return "$" + data.toFixed(2);
+                        },
+                    "autoWidth": true
+                },
+                { "data": "maxcobrar", "name": "maxcobrar", "autoWidth": true },
+                { "data": "cuentacontable", "name": "cuentacontable", "autoWidth": true },
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+<table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+    <thead class="table-rojo">
+        <tr>
+            <th scope="col" class="colBoton">Ver</th>
+            <th scope="col" class="colBoton">Editar</th>
+            <th scope="col" class="colBoton">Eliminar</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Tipo de servicio</th>
+            <th scope="col">Área</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Máximo a cobrar</th>
+            <th scope="col">Cuenta contable</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>

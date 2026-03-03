@@ -1,0 +1,174 @@
+﻿@model SistemaWeb.Models.Eventos
+@Scripts.Render("~/bundles/jquery")
+
+@{
+    ViewBag.Title = "Bitácora de eventos";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Perfil/JsonBitacora")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "fecha", "name": "fecha", "autoWidth": true, "render":
+                        function (data) {
+                            var valorNum = parseInt(data.replace(/\/Date\((-?\d+)\)\//, '$1'));
+                            var fechaJs = new Date(valorNum);
+                            return fechaJs.getDate() + "/" + (fechaJs.getMonth() + 1) + "/" + fechaJs.getFullYear();
+                        },
+                    "autoWidth" : true
+                },
+                {"data":"hora","name":"hora","autoWidth":true},
+                { "data": "operacion", "name": "operacion", "autoWidth": true },
+                { "data": "descripcion", "name": "descripcion", "autoWidth": true },
+                { "data": "usuario", "name": "usuario", "autoWidth": true },
+                { "data": "ip", "name": "ip", "autoWidth": true }
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="reporteBtn">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            <div class="container w-100 mw-100 p-0">
+                <div class="row align-items-stretch">
+                    <div class="col d-block d-lg-block col-md-block col-xl-8 w-100">
+                        <table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+                            <thead class="table-rojo">
+                                <tr>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Operación</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Usuario</th>
+                                    <th scope="col">IP</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="reporteForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            @using (Html.BeginForm("ReporteBitacora", "Perfil"))
+            {
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Generar reporte Excel</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="estadoRep" class="form-label normal">Operación:</label>
+                                <select id="estadoRep" class="form-control form-select" name="estadoRep">
+                                    <option value="">TODAS</option>
+                                    <option value="Actualización">ACTUALIZACIÓN</option>
+                                    <option value="Registro">REGISTRO</option>
+                                    <option value="Eliminación">ELIMINACIÓN</option>
+                                    <option value="Compra">COMPRA</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="fechaInicio" class="form-label normal">Fecha inicial:</label>
+                                <input type="date" class="form-control" name="fechaInicio" id="fechaInicio" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="fechaFinal" class="form-label normal">Fecha final:</label>
+                                <input type="date" class="form-control" name="fechaFinal" id="fechaFinal" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="pb-2 mt-1">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Descargar Excel</button>
+                                <a id="reporteClose" class="btn-rojo btn float-end">Cerrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        const btnDos = document.querySelector("#reporteBtn");
+        // Agregar listener
+        btnDos.addEventListener("click", function (evento) {
+            var elementDos = document.getElementById("reporteForm");
+            elementDos.classList.remove("noVisible");
+        });
+
+        const botonCerrar2 = document.querySelector("#reporteClose");
+        // Agregar listener
+        botonCerrar2.addEventListener("click", function (evento) {
+            var element2 = document.getElementById("reporteForm");
+            element2.classList.add("noVisible");
+        });
+
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

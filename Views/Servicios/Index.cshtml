@@ -1,0 +1,417 @@
+﻿@model SistemaWeb.Models.Servicios
+
+@{
+    ViewBag.Title = "Administrar servicios";
+}
+
+<div class="container w-100 mw-100 p-0">
+    <div class="row align-items-stretch mx-5 mt-5 mb-3">
+        <div class="col-2">
+            <a class="btn btn-rojo" id="agUsuario">
+                Agregar nuevo servicio
+            </a>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-rojo" id="reporteBtn">
+                Generar reporte
+            </a>
+        </div>
+    </div>
+    <div class="row align-items-stretch mx-5 mt-3">
+        <div class="col">
+            @Html.Partial("_ServiciosVistaParcial")
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="agUsuarioForm">
+    <div class="row w-100 rounded">
+        <div class="col-7 m-auto rounded">
+            <form id="identicalForm1" class="needs-validation" novalidate method="post">
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Agregar nuevo servicio</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="nomservicio" class="form-label normal">Nombre de servicio</label>
+                                <input maxlength="30" type="text" class="form-control" name="nomservicio" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas sin acentos
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3 mt-5">
+                                <label for="estado" class="form-check-label normal">Servicio activo</label>
+                                <input type="checkbox" name="estado" class="form-check-input" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-stretch">
+                        <div class="col">
+
+                            <div class="mb-3">
+                                <label for="IdArea" class="form-label normal">Área</label>
+                                @Html.DropDownList("IdArea", null, htmlAttributes: new { @class = "form-control form-select"})
+                            </div>
+                            <div class="mb-3">
+                                <label for="IdTS" class="form-label normal">Tipo de servicio</label>
+                                @Html.DropDownList("IdTS", null, htmlAttributes: new { @class = "form-control form-select" })
+                            </div>
+                            <div class="mb-3">
+                                <label for="Objetivo" class="form-label normal">Objetivo</label>
+                                <input maxlength="150" type="text" class="form-control" name="Objetivo" pattern="([A-Z]+[\s]?[A-Z]*)+" onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten letras mayúsculas sin acentos
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="serviciosmaxacobrar" class="form-label normal">Servicios máximos a cobrar</label>
+                                <input type="number" min="1" value="1" name="serviciosmaxacobrar" class="d-block form-control" pattern="\d*" required />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Solo se admiten números enteros
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="duracion" class="form-label normal">Duración</label>
+                                <input maxlength="15" type="text" class="form-control" name="duracion" pattern="^[A-Z0-9 ]*$" onkeyup="convertirMayuscula(this);" />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa los datos correctamente
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="costo" class="form-label normal">Costo</label>
+                                <input maxlength="8" class="form-control" name="costo" placeholder="0.00" pattern="[0-9]{1,5}[.][0-9]{2}" required />
+                                <div class="invalid-feedback textoLeyenda">
+                                    Ingresa los datos correctamente
+                                </div>
+                            </div>
+                            <div class="row align-items-stretch">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="cuetacontable" class="form-label normal">Cuenta contable</label>
+                                        <input maxlength="3" type="text" class="form-control" required name="cuetacontable" />
+                                        <div class="invalid-feedback textoLeyenda">
+                                            Solo se admiten números enteros
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="diasvigencia" class="form-label normal">Días de vigencia</label>
+                                        <input type="number" min="1" value="1" name="diasvigencia" class="d-block form-control" pattern="\d*" required />
+                                        <div class="invalid-feedback textoLeyenda">
+                                            Solo se admiten números enteros
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="prerrequisitos" class="form-label normal">Prerrequisitos</label>
+                                <textarea maxlength="150" class="form-control txtArea-l" name="prerrequisitos"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="col">
+
+                                <div class="pb-2 mt-3">
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Añadir nuevo servicio</button>
+                                    <a id="agUsuarioClose" class="btn-rojo btn float-end">Cerrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm noVisible" id="reporteForm">
+    <div class="row w-100 rounded">
+        <div class="col-6 m-auto rounded">
+            @using (Html.BeginForm("GenerarReporte", "Servicios"))
+            {
+                <div class="bg-rojo p-1 w-50 shadow w-auto">
+                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Generar reporte Excel</h5>
+                </div>
+
+                <div class="bg-white py-3 px-3">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="estadoRep" class="form-label normal">Estado de servicio:</label>
+                                <select id="estadoRep" class="form-control form-select" name="estadoRep">
+                                    <option value="">TODOS</option>
+                                    <option value="ACTIVO">ACTIVO</option>
+                                    <option value="INACTIVO">INACTIVO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="perfilRep" class="form-label normal">Tipo de área:</label>
+                                @Html.DropDownList("areaRep", (IEnumerable<SelectListItem>)ViewBag.IdArea, "TODAS", htmlAttributes: new { @class = "form-control form-select" })
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="areaRep" class="form-label normal">Tipo de servicio:</label>
+                                @Html.DropDownList("servicioRep", (IEnumerable<SelectListItem>)ViewBag.IdTS, "TODOS", htmlAttributes: new { @class = "form-control form-select" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-stretch">
+                        <div class="col">
+                            <div class="col">
+                                <div class="pb-2 mt-3">
+                                    <button id="submitBtn" type="submit" class="btn-rojo btn">Descargar Excel</button>
+                                    <a id="reporteClose" class="btn-rojo btn float-end">Cerrar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@{
+    if (ViewBag.Editar == true || ViewBag.op != null || ViewBag.error != null)
+    {
+
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        @{
+                            if (ViewBag.op == null)
+                            {
+                                if (ViewBag.error != null)
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                                }
+                                else
+                                {
+                                    <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Ver datos de servicio</h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Completado</h5>
+                            }
+                        }
+
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        @if (ViewBag.op != null || ViewBag.error != null)
+                        {
+                            <div>
+                                @if (ViewBag.error != null)
+                                {
+                                    <h4 class="quizLabel">@ViewBag.error</h4>
+                                }
+                                else if (ViewBag.op == "Agregar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha registrado el servicio <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Eliminar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha eliminado el servicio <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                else if (ViewBag.op == "Actualizar")
+                                {
+                                    <h4 class="quizLabel">¡Se ha actualizado el servicio <b>@ViewBag.user</b> con éxito!</h4>
+                                }
+                                <div class="row">
+                                    <div class="col mt-3 mb-2">
+                                        @Html.ActionLink("Aceptar", "Index", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="px-3 m-3">
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.HiddenFor(model => model.contro)
+
+                                    <h3 class="fw-bold text-rojo d-inline-block">@Model.nomservicio</h3>
+
+                                    <div class="d-inline-block position-absolute mx-3">
+                                        @if (Model.estado == true)
+                                        {
+                                            <span class='badge bg-success mt-1'>Activo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class='badge bg-danger mt-1'>Inactivo</span>
+                                        }
+                                    </div>
+
+                                    <div class="row align-items-stretch mt-4">
+                                        <div class="col">
+                                            <div class="mb-2">
+                                                <label for="nomservicio" class="form-label normal">Nombre de servicio</label>
+                                                <input type="text" class="form-control" name="nomservicio" readonly value="@Model.nomservicio" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch mt-2">
+                                        <div class="col">
+                                            <div class="mb-2">
+                                                <label for="IdArea" class="form-label normal">Área</label>
+                                                <input type="text" class="form-control" name="IdArea" readonly value="@Model.Areas.nombrearea" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="IdTS" class="form-label normal">Tipo de servicio</label>
+                                                <input type="text" class="form-control" name="IdTS" readonly value="@Model.TipoServicios.tipo" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="Objetivo" class="form-label normal">Objetivo</label>
+                                                <input type="text" class="form-control" name="Objetivo" readonly value="@Model.Objetivo" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="diasvigencia" class="form-label normal">Días de vigencia</label>
+                                                <input type="number" min="1" value="@Model.diasvigencia" name="diasvigencia" class="d-block form-control" readonly />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-2">
+                                                <label for="duracion" class="form-label normal">Duración</label>
+                                                <input type="text" class="form-control" name="duracion" readonly value="@Model.duracion" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="costo" class="form-label normal">Costo</label>
+                                                <input type="text" class="form-control" name="costo" readonly value="@Model.costo" />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="serviciosmaxacobrar" class="form-label normal">Servicios máximos a cobrar</label>
+                                                <input type="number" min="1" value="@Model.serviciosmaxacobrar" name="serviciosmaxacobrar" class="d-block form-control" readonly />
+                                            </div>
+                                            <div class="mb-2">
+                                                <label for="cuetacontable" class="form-label normal">Cuenta contable</label>
+                                                <input type="text" class="form-control" name="cuetacontable" readonly value="@Model.cuetacontable" />
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-2">
+                                                <label for="iniciales" class="form-label normal">Prerrequisitos</label>
+                                                <textarea type="text" class="form-control txtArea" name="prerrequisitos" readonly>@Model.prerrequisitos</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-stretch">
+                                        <div class="col">
+                                            <div class="col">
+                                                <div class="pb-2 mt-3">
+                                                    <a href="/Servicios" class="btn-rojo btn float-end">Cerrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <script>
+
+        function convertirMayuscula(e) {
+            e.value = e.value.toUpperCase();
+            if (e.checkValidity()) {
+                e.classList.remove('is-invalid')
+                e.classList.add('is-valid');
+
+            } else {
+                e.classList.remove('is-valid')
+                e.classList.add('is-invalid');
+            }
+        }
+
+        $(document).ready(function () {
+            let currForm1 = document.getElementById('identicalForm1');
+
+            // Validate on submit:
+            currForm1.addEventListener('submit', function (event) {
+                if (currForm1.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                currForm1.classList.add('was-validated');
+            }, false);
+
+
+            // Validate on input:
+            currForm1.querySelectorAll('.form-control').forEach(input => {
+                input.addEventListener(('input'), () => {
+                    if (input.checkValidity()) {
+                        input.classList.remove('is-invalid')
+                        input.classList.add('is-valid');
+                    } else {
+                        input.classList.remove('is-valid')
+                        input.classList.add('is-invalid');
+                    }
+                });
+            });
+
+
+            const boton = document.querySelector("#agUsuario");
+            // Agregar listener
+            boton.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.remove("noVisible");
+            });
+
+            const btnDos = document.querySelector("#reporteBtn");
+            // Agregar listener
+            btnDos.addEventListener("click", function (evento) {
+                var elementDos = document.getElementById("reporteForm");
+                elementDos.classList.remove("noVisible");
+            });
+
+            const botonCerrar = document.querySelector("#agUsuarioClose");
+            // Agregar listener
+            botonCerrar.addEventListener("click", function (evento) {
+                var element = document.getElementById("agUsuarioForm");
+                element.classList.add("noVisible");
+            });
+
+            const botonCerrar2 = document.querySelector("#reporteClose");
+            // Agregar listener
+            botonCerrar2.addEventListener("click", function (evento) {
+                var element2 = document.getElementById("reporteForm");
+                element2.classList.add("noVisible");
+            });
+        });
+    </script>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

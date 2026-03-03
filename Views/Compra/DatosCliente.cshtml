@@ -1,0 +1,347 @@
+﻿
+@{
+    ViewBag.Title = "Datos del cliente";
+}
+
+<div class="row align-items-stretch mt-3">
+    <div class="col">
+        <ul class="lineaArbol">
+            <li class="textoLeyenda">
+                Resumen de compra
+            </li>
+            <li class="text-rojo textoLeyenda">
+                Datos del cliente
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="container w-100 mw-100 p-0">
+    <form id="identicalForm1" class="needs-validation" novalidate method="post">
+        <div class="row align-items-stretch mx-5 mt-5">
+            <div class="col col-3">
+                <h5>Especifica el tipo de cliente:</h5>
+                <div class="form-check">
+                    <input class="form-check-input" value="rdAlum" type="radio" name="tipoCliente" id="rdAlum" checked>
+                    <label class="form-check-label normal" for="rdAlum">
+                        Estudiante
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" value="rdExt" type="radio" name="tipoCliente" id="rdExt">
+                    <label class="form-check-label normal" for="rdExt">
+                        Cliente externo
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="mb-3">
+                            <label for="matriculaEst" class="form-label normal">Matrícula</label>
+                            <input value="@ViewBag.clMatricula" id="matriculaEst" maxlength="9" type="text" class="form-control" name="matriculaEst" pattern="(((ISC)|(LG)|(IB)|(IE)|(II)|(IM))[0-9]{6})" required autofocus onkeyup="convertirMayuscula(this);" />
+                            <div class="invalid-feedback textoLeyenda">
+                                Solo se admiten letras mayúsculas y números
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="rfc" class="form-label normal">RFC</label>
+                            <input id="rfc" maxlength="13" type="text" class="form-control" name="rfc" pattern="([A-Z0-9]*)+" required disabled onkeyup="convertirMayuscula(this);" />
+                            <div class="invalid-feedback textoLeyenda">
+                                Solo se admiten letras mayúsculas y números
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="tipoPer" class="form-label normal">Tipo de persona</label>
+                            <select id="tipoPer" class="form-control form-select" name="tipoPer" disabled>
+                                <option value="FÍSICA">FÍSICA</option>
+                                <option value="MORAL">MORAL</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label normal">Nombre</label>
+                            <input value="@ViewBag.clNombre" maxlength="30" id="nombre" type="text" class="form-control" name="nombre" pattern="([A-Z]+[\s]?[A-Z]*)+" required disabled onkeyup="convertirMayuscula(this);" />
+                            <div class="invalid-feedback textoLeyenda">
+                                Solo se admiten letras mayúsculas y espacios
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="apellidos" class="form-label normal">Apellidos</label>
+                            <input value="@ViewBag.clApellidos" maxlength="40" id="apellidos" type="text" class="form-control" pattern="([A-Z]+[\s]?[A-Z]*)+" name="apellidos" disabled onkeyup="convertirMayuscula(this);" />
+                            <div class="invalid-feedback textoLeyenda">
+                                Solo se admiten letras mayúsculas y espacios
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="correo" class="form-label normal">Correo electrónico</label>
+                            <input value="@ViewBag.clCorreo" maxlength="40" id="correo" type="email" class="form-control" name="correo" required disabled />
+                            <div class="invalid-feedback textoLeyenda">
+                                Escribe un correo electrónico válido
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-5">
+                        <div class="mb-3">
+                            <label for="calle" class="form-label normal">Calle</label>
+                            <input value="@ViewBag.clCalle" maxlength="30" id="calle" type="text" class="form-control" name="calle" pattern="(([A-Z]|[0-9])+[ ]?[.]?[ ]?(([A-Z]|[0-9])+[.]?[ ]?[A-Z]*[0-9]*[.]?[ ]?)*([A-Z]|[0-9])+)" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="noext" class="form-label normal">No. exterior</label>
+                            <input value="@ViewBag.clNoExt" maxlength="10" id="noext" type="text" class="form-control" pattern="((SN)|[0-9]+[ ][A-Z]+|(ED)[ ][0-9]+|[0-9]+)" name="noext" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="noint" class="form-label normal">No. interior</label>
+                            <input value="@ViewBag.clNoInt" maxlength="5" id="noint" type="text" class="form-control" pattern="([0-9]+[ ][A-Z]+|(D)[ ][0-9]+|[0-9]+)" name="noint" disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="colonia" class="form-label normal">Colonia</label>
+                            <input value="@ViewBag.clColonia" maxlength="30" id="colonia" type="text" class="form-control" name="colonia" pattern="(([A-Z]|[0-9])+[ ]?[.]?[ ]?(([A-Z]|[0-9])+[.]?[ ]?[A-Z]*[0-9]*[.]?[ ]?)*([A-Z]|[0-9])+)" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="cp" class="form-label normal">Código postal</label>
+                            <input value="@ViewBag.clCP" maxlength="10" id="cp" type="text" class="form-control" name="cp" pattern="[0-9]{5}" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="ciudad" class="form-label normal">Ciudad</label>
+                            <input value="@ViewBag.clCiudad" maxlength="30" id="ciudad" type="text" class="form-control" name="ciudad" pattern="([A-Z]+[\s]?[A-Z]*)+" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="estado" class="form-label normal">Estado</label>
+                            <input value="@ViewBag.clEstado" maxlength="30" id="estado" type="text" class="form-control" name="estado" pattern="([A-Z]+[\s]?[A-Z]*)+" required disabled onkeyup="convertirMayuscula(this);" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row align-items-stretch mt-3">
+                    <div class="col">
+                        <div class="col">
+                            <div class="pb-2 mt-3">
+                                <button id="submitBtn" type="submit" class="btn-rojo btn">Continuar</button>
+                                <a href="/Compra" class="btn-rojo btn float-end">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@{
+    if (ViewBag.error != null)
+    {
+        <div class="bloqueOscuro centrarContenedor alturaTotal contenedorForm" id="agUsuarioForm">
+            <div class="row w-100 rounded">
+                <div class="col-6 m-auto rounded">
+                    <div class="bg-rojo p-1 w-50 shadow w-auto">
+                        <h5 class="m-0 text-center text-white fw-normal fw-bold py-1">Error en operación</h5>
+                    </div>
+                    <div class="bg-white py-3 px-3">
+                        <div>
+                            <h4 class="quizLabel">@ViewBag.error</h4>
+                            <div class="row">
+                                <div class="col mt-3 mb-2">
+                                    @Html.ActionLink("Aceptar", "DatosCliente", new { }, new { @class = "btn-rojo btn d-block ms-auto me-auto w-fit mb-2" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+
+    function convertirMayuscula(e) {
+        e.value = e.value.toUpperCase();
+        if (e.checkValidity()) {
+            e.classList.remove('is-invalid')
+            e.classList.add('is-valid');
+
+        } else {
+            e.classList.remove('is-valid')
+            e.classList.add('is-invalid');
+        }
+    }
+
+    $(document).ready(function () {
+
+        if ($('input:radio[name=tipoCliente]:checked').val() == 'rdExt') {
+            $("#matriculaEst").prop("disabled", true);
+            $("#rfc").prop("disabled", false);
+            $("#tipoPer").prop("disabled", false);
+            $("#nombre").prop("disabled", false);
+            $("#apellidos").prop("disabled", false);
+            $("#correo").prop("disabled", false);
+            $("#calle").prop("disabled", false);
+            $("#noext").prop("disabled", false);
+            $("#noint").prop("disabled", false);
+            $("#colonia").prop("disabled", false);
+            $("#cp").prop("disabled", false);
+            $("#ciudad").prop("disabled", false);
+            $("#estado").prop("disabled", false);
+        } else {
+            $("#matriculaEst").prop("disabled", false);
+            $("#rfc").prop("disabled", true);
+            $("#tipoPer").prop("disabled", true);
+            $("#nombre").prop("disabled", true);
+            $("#apellidos").prop("disabled", true);
+            $("#correo").prop("disabled", true);
+            $("#calle").prop("disabled", true);
+            $("#noext").prop("disabled", true);
+            $("#noint").prop("disabled", true);
+            $("#colonia").prop("disabled", true);
+            $("#cp").prop("disabled", true);
+            $("#ciudad").prop("disabled", true);
+            $("#estado").prop("disabled", true);
+        }
+
+        let currForm1 = document.getElementById('identicalForm1');
+
+        // Validate on submit:
+        currForm1.addEventListener('submit', function (event) {
+            if (currForm1.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            currForm1.classList.add('was-validated');
+        }, false);
+
+
+        // Validate on input:
+        const inputMat = document.querySelector('#matriculaEst');
+
+        currForm1.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener(('input'), () => {
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid')
+                    input.classList.add('is-valid');
+                } else {
+                    input.classList.remove('is-valid')
+                    input.classList.add('is-invalid');
+                }
+
+
+                if ($('input:radio[name=tipoCliente]:checked').val() == 'rdAlum') {
+                    if (inputMat.classList.contains('is-valid')) {
+                        $.ajax({
+                            type: 'GET',
+                            url: '/Compra/GetAlumnos',
+                            mimeType: 'json',
+                            success: function (data) {
+                                $.each(data, function (i, CustData) {
+                                    if (CustData.tipo = "FÍSICA") {
+                                        CustData.tipo = "FÍSICA";
+                                    }
+
+                                    if (CustData.matricula == $('#matriculaEst').val()) {
+                                        document.getElementById("rfc").value = CustData.rfc;
+                                        document.getElementById("tipoPer").value = CustData.tipo;
+                                        document.getElementById("nombre").value = CustData.nombre;
+                                        document.getElementById("apellidos").value = CustData.apellidos;
+                                        document.getElementById("correo").value = CustData.correo;
+                                        document.getElementById("calle").value = CustData.calle;
+                                        document.getElementById("noext").value = CustData.noext;
+                                        document.getElementById("noint").value = CustData.noint;
+                                        document.getElementById("colonia").value = CustData.colonia;
+                                        document.getElementById("cp").value = CustData.cp;
+                                        document.getElementById("ciudad").value = CustData.ciudad;
+                                        document.getElementById("estado").value = CustData.estado;
+                                    }
+                                });
+                            },
+                            error: function () {
+                                alert('Error');
+                            }
+                        });
+                    } else {
+                        document.getElementById("rfc").value = "";
+                        document.getElementById("tipoPer").value = "FÍSICA";
+                        document.getElementById("nombre").value = "";
+                        document.getElementById("apellidos").value = "";
+                        document.getElementById("correo").value = "";
+                        document.getElementById("calle").value = "";
+                        document.getElementById("noext").value = "";
+                        document.getElementById("noint").value = "";
+                        document.getElementById("colonia").value = "";
+                        document.getElementById("cp").value = "";
+                        document.getElementById("ciudad").value = "";
+                        document.getElementById("estado").value = "";
+                    }
+                }
+            });
+        });
+
+        $('#rdAlum').on('click', function (e) {
+            $("#matriculaEst").prop("disabled", false);
+            $("#rfc").prop("disabled", true);
+            $("#tipoPer").prop("disabled", true);
+            $("#nombre").prop("disabled", true);
+            $("#apellidos").prop("disabled", true);
+            $("#correo").prop("disabled", true);
+            $("#calle").prop("disabled", true);
+            $("#noext").prop("disabled", true);
+            $("#noint").prop("disabled", true);
+            $("#colonia").prop("disabled", true);
+            $("#cp").prop("disabled", true);
+            $("#ciudad").prop("disabled", true);
+            $("#estado").prop("disabled", true);
+        });
+
+        $('#rdExt').on('click', function (e) {
+            $("#matriculaEst").prop("disabled", true);
+            $("#rfc").prop("disabled", false);
+            $("#tipoPer").prop("disabled", false);
+            $("#nombre").prop("disabled", false);
+            $("#apellidos").prop("disabled", false);
+            $("#correo").prop("disabled", false);
+            $("#calle").prop("disabled", false);
+            $("#noext").prop("disabled", false);
+            $("#noint").prop("disabled", false);
+            $("#colonia").prop("disabled", false);
+            $("#cp").prop("disabled", false);
+            $("#ciudad").prop("disabled", false);
+            $("#estado").prop("disabled", false);
+        });
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

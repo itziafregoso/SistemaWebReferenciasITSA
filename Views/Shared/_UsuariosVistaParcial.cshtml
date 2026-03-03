@@ -1,0 +1,108 @@
+﻿@model SistemaWeb.Models.UsuariosAd
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //var row;
+
+        $("#tblUser").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "@Url.Content("~/Usuarios/JsonUsuarios")",
+                "type": "POST",
+                "datatype":"json"
+            },
+            "pageLength": 10,
+            "filter": true,
+            "responsivePriority": 1,
+            "data": null,
+            "columns": [
+                {
+                    "data": "IdUsuario", "name": "IdUsuario", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonVer' href='/Usuarios/Index/" + data + "'>" + "<i class='fa-solid fa-eye'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdUsuario", "name": "IdUsuario", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEditar' href='/Usuarios/ConfirmarUsuarios/" + data + "?op=Actualizar'>" + "<i class='fa-solid fa-pen'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                {
+                    "data": "IdUsuario", "name": "IdUsuario", "autoWidth": true, "render":
+                        function (data) {
+                            return "<a class='botonEliminar' href='/Usuarios/ConfirmarUsuarios/" + data + "?op=Eliminar'>" + "<i class='fa-solid fa-trash'></i></a>"
+                        },
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "35px"
+                },
+                { "data": "nombre", "name": "nombre", "autoWidth": true },
+                { "data": "iniciales", "name": "iniciales", "autoWidth": true },
+                { "data": "area", "name": "area", "autoWidth": true },
+                { "data": "perfil", "name": "perfil", "autoWidth": true },
+                {
+                    "data": "estado", "name": "estado", "autoWidth": true, "render":
+                        function (data) {
+                            if (data == 1) {
+                                return "<span class='badge bg-success'>Activo</span>";
+                            } else {
+                                return "<span class='badge bg-danger'>Inactivo</span>";
+                            }
+                        },
+                    "orderable": false,
+                    "searchable": false
+                }
+            ],
+            "order": [[3, "asc"]],
+            "ColumnDefs": [
+                { "bSortable": false, "aTargets": [0, 1, 2] },
+            ],
+            language: {
+                "decimal": "",
+                "emptyTable": "No hay información",
+                "info": "",
+                "infoEmpty": "",
+                "infoFiltered": "",
+                "infoPostFix": "",
+                "thousands": ",",
+                "lengthMenu": "",
+                "loadingRecords": "Cargando...",
+                "processing": "Procesando...",
+                "search": "Buscar:",
+                "zeroRecords": "Sin resultados encontrados",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+        });
+
+    });
+</script>
+
+<table id="tblUser" class="table table-striped text-center shadow-sm display" style="width:100%">
+    <thead class="table-rojo">
+        <tr>
+            <th scope="col" class="colBoton">Ver</th>
+            <th scope="col" class="colBoton">Editar</th>
+            <th scope="col" class="colBoton">Eliminar</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Iniciales</th>
+            <th scope="col">Área institucional</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Estado</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
