@@ -38,9 +38,9 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="nomservicio" class="form-label normal">Nombre de servicio</label>
-                                <input maxlength="30" type="text" class="form-control" name="nomservicio" pattern="([A-Z]+[\s]?[A-Z]*)+" required autofocus onkeyup="convertirMayuscula(this);" />
+                                <input maxlength="100" type="text" class="form-control" name="nomservicio" pattern="^[A-Z0-9 ]+$" required autofocus onkeyup="convertirMayuscula(this);" />
                                 <div class="invalid-feedback textoLeyenda">
-                                    Solo se admiten letras mayúsculas sin acentos
+                                    Solo se admiten letras mayúsculas, números y espacios (sin acentos)
                                 </div>
                             </div>
                         </div>
