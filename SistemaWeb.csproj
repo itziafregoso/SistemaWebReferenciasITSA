@@ -297,6 +297,7 @@
       <DependentUpon>BDSistema.edmx</DependentUpon>
       <LastGenOutput>BDSistema.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\BDSistema.edmx.sql" />
     <Content Include="Models\BDSistema.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BDSistema.edmx</DependentUpon>
@@ -307,6 +308,7 @@
       <DependentUpon>BD_Historico.edmx</DependentUpon>
       <LastGenOutput>BD_Historico.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\BD_Historico.edmx.sql" />
     <Content Include="Models\BD_Historico.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BD_Historico.edmx</DependentUpon>
