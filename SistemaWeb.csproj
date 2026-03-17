@@ -356,6 +356,8 @@
     <Content Include="Models\BD_Historico.edmx.diagram">
       <DependentUpon>BD_Historico.edmx</DependentUpon>
     </Content>
+    <Content Include="connectionStrings.config" />
+    <Content Include="connectionStrings.config.example" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />

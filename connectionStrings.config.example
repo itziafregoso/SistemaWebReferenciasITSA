@@ -1,0 +1,18 @@
+<connectionStrings>
+  <add name="BDSistema"
+       connectionString="data source=SERVIDOR\SQLEXPRESS;
+                         initial catalog=BD_Sys_IP;
+                         integrated security=False;
+                         MultipleActiveResultSets=True;
+                         user id=USUARIO;
+                         password=CONTRASEÑA;"
+       providerName="System.Data.EntityClient" />
+  <add name="BDHistorico"
+       connectionString="data source=SERVIDOR\SQLEXPRESS;
+                         initial catalog=BD_Historico;
+                         integrated security=False;
+                         MultipleActiveResultSets=True;
+                         user id=USUARIO;
+                         password=CONTRASEÑA;"
+       providerName="System.Data.EntityClient" />
+</connectionStrings>
