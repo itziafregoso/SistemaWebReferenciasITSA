@@ -317,7 +317,7 @@ namespace SistemaWeb.Controllers
                 {
                     for(int y = 0; y<listaHabiles.Count-1; y++)
                     {
-                        fechaLista = (listaHabiles[i].fechaHabil).ToShortDateString();
+                        fechaLista = (listaHabiles[y].fechaHabil).ToShortDateString();
                         fechaDT = dt.ToShortDateString();
                         if (fechaLista == fechaDT)
                         {

@@ -1,830 +1,830 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
-  <!-- EF Runtime content -->
-  <edmx:Runtime>
-    <!-- SSDL content -->
-    <edmx:StorageModels>
-    <Schema Namespace="BD_Sys_IPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Areas">
-          <Key>
-            <PropertyRef Name="IdArea" />
-          </Key>
-          <Property Name="IdArea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombrearea" Type="nvarchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AreasAd">
-          <Key>
-            <PropertyRef Name="IdAreaAd" />
-          </Key>
-          <Property Name="IdAreaAd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombrearead" Type="nvarchar" MaxLength="25" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Clientes">
-          <Key>
-            <PropertyRef Name="IdCliente" />
-          </Key>
-          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="rfc " Type="nvarchar" MaxLength="13" />
-          <Property Name="tipopersona" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="matricula" Type="nvarchar" MaxLength="9" />
-          <Property Name="nombre " Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="apellidos" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="correoelectronico" Type="nvarchar" MaxLength="40" Nullable="false" />
-          <Property Name="calle" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="numeroex" Type="nvarchar" MaxLength="10" />
-          <Property Name="numeroin" Type="nvarchar" MaxLength="5" />
-          <Property Name="colonia" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="cp" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="ciudad" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="estado" Type="nvarchar" MaxLength="30" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DiasHabiles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fechaHabil" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Eventos">
-          <Key>
-            <PropertyRef Name="IdEvento" />
-          </Key>
-          <Property Name="IdEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="fecha" Type="datetime" Nullable="false" />
-          <Property Name="hora" Type="nvarchar" MaxLength="5" Nullable="false" />
-          <Property Name="operacion" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="descripcion" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="IdUsuariosAd" Type="int" Nullable="false" />
-          <Property Name="ip" Type="nvarchar" MaxLength="15" Nullable="false" />
-        </EntityType>
-        <EntityType Name="OpcionesSistema">
-          <Key>
-            <PropertyRef Name="IdOpc" />
-          </Key>
-          <Property Name="IdOpc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="colorPrimario" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorPrimarioAl" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorSecundario" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorTitulos" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorTexto" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBEliminar" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBEliminarAl" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBVer" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBVerAl" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBEditar" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBEditarAl" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBComprar" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="colorBComprarAl" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="numCuenta" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="nomBuzon" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="cuenClave" Type="varchar" MaxLength="18" Nullable="false" />
-          <Property Name="constanteRef" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="numRap" Type="varchar" MaxLength="18" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PerfilesAd">
-          <Key>
-            <PropertyRef Name="IdPerfil" />
-          </Key>
-          <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombreperfil" Type="nvarchar" MaxLength="25" Nullable="false" />
-          <Property Name="adminperfiles" Type="bit" Nullable="false" />
-          <Property Name="adminadareas" Type="bit" Nullable="false" />
-          <Property Name="verservicios" Type="bit" Nullable="false" />
-          <Property Name="admintiposervicios" Type="bit" Nullable="false" />
-          <Property Name="verreferencias" Type="bit" Nullable="false" />
-          <Property Name="adminusuarios" Type="bit" Nullable="false" />
-          <Property Name="administrarareas" Type="bit" Nullable="false" />
-          <Property Name="adminservicio" Type="bit" Nullable="false" />
-          <Property Name="bitacoraeventos" Type="bit" Nullable="false" />
-          <Property Name="subirarchivo" Type="bit" Nullable="false" />
-          <Property Name="generarcompra" Type="bit" Nullable="false" />
-          <Property Name="adminparametros" Type="bit" Nullable="false" />
-          <Property Name="adminalumnos" Type="bit" Nullable="false" />
-          <Property Name="veralumnos" Type="bit" Nullable="false" />
-          <Property Name="subiralumnos" Type="bit" Nullable="false" />
-          <Property Name="verhistorico" Type="bit" Nullable="false" />
-          <Property Name="restaurarsistema" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Referencias">
-          <Key>
-            <PropertyRef Name="numref" />
-          </Key>
-          <Property Name="numref" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="estadoref" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="fechaemision" Type="datetime" Nullable="false" />
-          <Property Name="fechaestado" Type="datetime" Nullable="false" />
-          <Property Name="fechavencimiento" Type="datetime" Nullable="false" />
-          <Property Name="monto" Type="money" Nullable="false" />
-          <Property Name="IdCliente" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Servicios">
-          <Key>
-            <PropertyRef Name="contro" />
-          </Key>
-          <Property Name="contro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdArea" Type="int" Nullable="false" />
-          <Property Name="IdTS" Type="int" Nullable="false" />
-          <Property Name="nomservicio" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Objetivo" Type="nvarchar" MaxLength="150" />
-          <Property Name="duracion" Type="nvarchar" MaxLength="15" />
-          <Property Name="costo" Type="decimal" Precision="7" Scale="2" Nullable="false" />
-          <Property Name="prerrequisitos" Type="nvarchar" MaxLength="150" />
-          <Property Name="diasvigencia" Type="int" Nullable="false" />
-          <Property Name="serviciosmaxacobrar" Type="int" Nullable="false" />
-          <Property Name="cuetacontable" Type="int" Nullable="false" />
-          <Property Name="estado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TipoServicios">
-          <Key>
-            <PropertyRef Name="IdTS" />
-          </Key>
-          <Property Name="IdTS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="tipo" Type="nvarchar" MaxLength="25" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsuariosAd">
-          <Key>
-            <PropertyRef Name="IdUsuariosAd" />
-          </Key>
-          <Property Name="IdUsuariosAd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="iniciales" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="IdPerfil" Type="int" Nullable="false" />
-          <Property Name="correoelectronico" Type="nvarchar" MaxLength="60" Nullable="false" />
-          <Property Name="estado" Type="bit" Nullable="false" />
-          <Property Name="IdAreaAd" Type="int" Nullable="false" />
-          <Property Name="contrasena" Type="nvarchar" MaxLength="200" />
-        </EntityType>
-        <EntityType Name="Ventas">
-          <Key>
-            <PropertyRef Name="IdVenta" />
-          </Key>
-          <Property Name="IdVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="numref" Type="nvarchar" MaxLength="15" Nullable="false" />
-          <Property Name="contro" Type="int" Nullable="false" />
-          <Property Name="cantidad" Type="int" Nullable="false" />
-          <Property Name="costount" Type="money" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Evento_UsuariosAd">
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="1" />
-          <End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosAd">
-              <PropertyRef Name="IdUsuariosAd" />
-            </Principal>
-            <Dependent Role="Eventos">
-              <PropertyRef Name="IdUsuariosAd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Referencias_Clientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Referencias" Type="Self.Referencias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="Referencias">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Servicios_Areas">
-          <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Areas">
-              <PropertyRef Name="IdArea" />
-            </Principal>
-            <Dependent Role="Servicios">
-              <PropertyRef Name="IdArea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Servicios_TipoServicios">
-          <End Role="TipoServicios" Type="Self.TipoServicios" Multiplicity="1" />
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoServicios">
-              <PropertyRef Name="IdTS" />
-            </Principal>
-            <Dependent Role="Servicios">
-              <PropertyRef Name="IdTS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuariosAd_AreasAd">
-          <End Role="AreasAd" Type="Self.AreasAd" Multiplicity="1" />
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AreasAd">
-              <PropertyRef Name="IdAreaAd" />
-            </Principal>
-            <Dependent Role="UsuariosAd">
-              <PropertyRef Name="IdAreaAd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuariosAd_PerfilesAd">
-          <End Role="PerfilesAd" Type="Self.PerfilesAd" Multiplicity="1" />
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PerfilesAd">
-              <PropertyRef Name="IdPerfil" />
-            </Principal>
-            <Dependent Role="UsuariosAd">
-              <PropertyRef Name="IdPerfil" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ventas_Referencias">
-          <End Role="Referencias" Type="Self.Referencias" Multiplicity="1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Referencias">
-              <PropertyRef Name="numref" />
-            </Principal>
-            <Dependent Role="Ventas">
-              <PropertyRef Name="numref" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ventas_Servicios">
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicios">
-              <PropertyRef Name="contro" />
-            </Principal>
-            <Dependent Role="Ventas">
-              <PropertyRef Name="contro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="BD_Sys_IPModelStoreContainer">
-          <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AreasAd" EntityType="Self.AreasAd" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DiasHabiles" EntityType="Self.DiasHabiles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OpcionesSistema" EntityType="Self.OpcionesSistema" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PerfilesAd" EntityType="Self.PerfilesAd" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Referencias" EntityType="Self.Referencias" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TipoServicios" EntityType="Self.TipoServicios" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsuariosAd" EntityType="Self.UsuariosAd" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Evento_UsuariosAd" Association="Self.FK_Evento_UsuariosAd">
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-            <End Role="Eventos" EntitySet="Eventos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Referencias_Clientes" Association="Self.FK_Referencias_Clientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Referencias" EntitySet="Referencias" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Servicios_Areas" Association="Self.FK_Servicios_Areas">
-            <End Role="Areas" EntitySet="Areas" />
-            <End Role="Servicios" EntitySet="Servicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Servicios_TipoServicios" Association="Self.FK_Servicios_TipoServicios">
-            <End Role="TipoServicios" EntitySet="TipoServicios" />
-            <End Role="Servicios" EntitySet="Servicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuariosAd_AreasAd" Association="Self.FK_UsuariosAd_AreasAd">
-            <End Role="AreasAd" EntitySet="AreasAd" />
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuariosAd_PerfilesAd" Association="Self.FK_UsuariosAd_PerfilesAd">
-            <End Role="PerfilesAd" EntitySet="PerfilesAd" />
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ventas_Referencias" Association="Self.FK_Ventas_Referencias">
-            <End Role="Referencias" EntitySet="Referencias" />
-            <End Role="Ventas" EntitySet="Ventas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ventas_Servicios" Association="Self.FK_Ventas_Servicios">
-            <End Role="Servicios" EntitySet="Servicios" />
-            <End Role="Ventas" EntitySet="Ventas" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="BD_Sys_IPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Areas">
-          <Key>
-            <PropertyRef Name="IdArea" />
-          </Key>
-          <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombrearea" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Servicios" Relationship="Self.FK_Servicios_Areas" FromRole="Areas" ToRole="Servicios" />
-        </EntityType>
-        <EntityType Name="AreasAd">
-          <Key>
-            <PropertyRef Name="IdAreaAd" />
-          </Key>
-          <Property Name="IdAreaAd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombrearead" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UsuariosAd" Relationship="Self.FK_UsuariosAd_AreasAd" FromRole="AreasAd" ToRole="UsuariosAd" />
-        </EntityType>
-        <EntityType Name="Clientes">
-          <Key>
-            <PropertyRef Name="IdCliente" />
-          </Key>
-          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="rfc_" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
-          <Property Name="tipopersona" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="matricula" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
-          <Property Name="nombre_" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="apellidos" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="correoelectronico" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="calle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="numeroex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="numeroin" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
-          <Property Name="colonia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="cp" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Referencias" Relationship="Self.FK_Referencias_Clientes" FromRole="Clientes" ToRole="Referencias" />
-        </EntityType>
-        <EntityType Name="DiasHabiles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fechaHabil" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="Eventos">
-          <Key>
-            <PropertyRef Name="IdEvento" />
-          </Key>
-          <Property Name="IdEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="hora" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="operacion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdUsuariosAd" Type="Int32" Nullable="false" />
-          <Property Name="ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UsuariosAd" Relationship="Self.FK_Evento_UsuariosAd" FromRole="Eventos" ToRole="UsuariosAd" />
-        </EntityType>
-        <EntityType Name="OpcionesSistema">
-          <Key>
-            <PropertyRef Name="IdOpc" />
-          </Key>
-          <Property Name="IdOpc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="colorPrimario" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorPrimarioAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorSecundario" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorTitulos" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorTexto" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBEliminar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBEliminarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBVer" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBVerAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBEditar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBEditarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBComprar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="colorBComprarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="numCuenta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nomBuzon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cuenClave" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="constanteRef" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="numRap" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="PerfilesAd">
-          <Key>
-            <PropertyRef Name="IdPerfil" />
-          </Key>
-          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreperfil" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="adminperfiles" Type="Boolean" Nullable="false" />
-          <Property Name="adminadareas" Type="Boolean" Nullable="false" />
-          <Property Name="verservicios" Type="Boolean" Nullable="false" />
-          <Property Name="admintiposervicios" Type="Boolean" Nullable="false" />
-          <Property Name="verreferencias" Type="Boolean" Nullable="false" />
-          <Property Name="adminusuarios" Type="Boolean" Nullable="false" />
-          <Property Name="administrarareas" Type="Boolean" Nullable="false" />
-          <Property Name="adminservicio" Type="Boolean" Nullable="false" />
-          <Property Name="bitacoraeventos" Type="Boolean" Nullable="false" />
-          <Property Name="subirarchivo" Type="Boolean" Nullable="false" />
-          <Property Name="generarcompra" Type="Boolean" Nullable="false" />
-          <Property Name="adminparametros" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UsuariosAd" Relationship="Self.FK_UsuariosAd_PerfilesAd" FromRole="PerfilesAd" ToRole="UsuariosAd" />
-          <Property Name="adminalumnos" Type="Boolean" Nullable="false" />
-          <Property Name="veralumnos" Type="Boolean" Nullable="false" />
-          <Property Name="subiralumnos" Type="Boolean" Nullable="false" />
-          <Property Name="verhistorico" Type="Boolean" Nullable="false" />
-          <Property Name="restaurarsistema" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Referencias">
-          <Key>
-            <PropertyRef Name="numref" />
-          </Key>
-          <Property Name="numref" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="estadoref" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="fechaemision" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fechaestado" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="fechavencimiento" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Clientes" Relationship="Self.FK_Referencias_Clientes" FromRole="Referencias" ToRole="Clientes" />
-          <NavigationProperty Name="Ventas" Relationship="Self.FK_Ventas_Referencias" FromRole="Referencias" ToRole="Ventas" />
-        </EntityType>
-        <EntityType Name="Servicios">
-          <Key>
-            <PropertyRef Name="contro" />
-          </Key>
-          <Property Name="contro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdArea" Type="Int32" Nullable="false" />
-          <Property Name="IdTS" Type="Int32" Nullable="false" />
-          <Property Name="nomservicio" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Objetivo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="duracion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="costo" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
-          <Property Name="prerrequisitos" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="diasvigencia" Type="Int32" Nullable="false" />
-          <Property Name="serviciosmaxacobrar" Type="Int32" Nullable="false" />
-          <Property Name="cuetacontable" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Areas" Relationship="Self.FK_Servicios_Areas" FromRole="Servicios" ToRole="Areas" />
-          <NavigationProperty Name="TipoServicios" Relationship="Self.FK_Servicios_TipoServicios" FromRole="Servicios" ToRole="TipoServicios" />
-          <NavigationProperty Name="Ventas" Relationship="Self.FK_Ventas_Servicios" FromRole="Servicios" ToRole="Ventas" />
-        </EntityType>
-        <EntityType Name="TipoServicios">
-          <Key>
-            <PropertyRef Name="IdTS" />
-          </Key>
-          <Property Name="IdTS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Servicios" Relationship="Self.FK_Servicios_TipoServicios" FromRole="TipoServicios" ToRole="Servicios" />
-        </EntityType>
-        <EntityType Name="UsuariosAd">
-          <Key>
-            <PropertyRef Name="IdUsuariosAd" />
-          </Key>
-          <Property Name="IdUsuariosAd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="iniciales" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IdPerfil" Type="Int32" Nullable="false" />
-          <Property Name="correoelectronico" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
-          <Property Name="IdAreaAd" Type="Int32" Nullable="false" />
-          <Property Name="contrasena" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AreasAd" Relationship="Self.FK_UsuariosAd_AreasAd" FromRole="UsuariosAd" ToRole="AreasAd" />
-          <NavigationProperty Name="Eventos" Relationship="Self.FK_Evento_UsuariosAd" FromRole="UsuariosAd" ToRole="Eventos" />
-          <NavigationProperty Name="PerfilesAd" Relationship="Self.FK_UsuariosAd_PerfilesAd" FromRole="UsuariosAd" ToRole="PerfilesAd" />
-        </EntityType>
-        <EntityType Name="Ventas">
-          <Key>
-            <PropertyRef Name="IdVenta" />
-          </Key>
-          <Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="numref" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="contro" Type="Int32" Nullable="false" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="costount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Referencias" Relationship="Self.FK_Ventas_Referencias" FromRole="Ventas" ToRole="Referencias" />
-          <NavigationProperty Name="Servicios" Relationship="Self.FK_Ventas_Servicios" FromRole="Ventas" ToRole="Servicios" />
-        </EntityType>
-        <Association Name="FK_Servicios_Areas">
-          <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Areas">
-              <PropertyRef Name="IdArea" />
-            </Principal>
-            <Dependent Role="Servicios">
-              <PropertyRef Name="IdArea" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuariosAd_AreasAd">
-          <End Role="AreasAd" Type="Self.AreasAd" Multiplicity="1" />
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AreasAd">
-              <PropertyRef Name="IdAreaAd" />
-            </Principal>
-            <Dependent Role="UsuariosAd">
-              <PropertyRef Name="IdAreaAd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Referencias_Clientes">
-          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
-          <End Role="Referencias" Type="Self.Referencias" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Clientes">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="Referencias">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Evento_UsuariosAd">
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="1" />
-          <End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UsuariosAd">
-              <PropertyRef Name="IdUsuariosAd" />
-            </Principal>
-            <Dependent Role="Eventos">
-              <PropertyRef Name="IdUsuariosAd" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UsuariosAd_PerfilesAd">
-          <End Role="PerfilesAd" Type="Self.PerfilesAd" Multiplicity="1" />
-          <End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PerfilesAd">
-              <PropertyRef Name="IdPerfil" />
-            </Principal>
-            <Dependent Role="UsuariosAd">
-              <PropertyRef Name="IdPerfil" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ventas_Referencias">
-          <End Role="Referencias" Type="Self.Referencias" Multiplicity="1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Referencias">
-              <PropertyRef Name="numref" />
-            </Principal>
-            <Dependent Role="Ventas">
-              <PropertyRef Name="numref" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Servicios_TipoServicios">
-          <End Role="TipoServicios" Type="Self.TipoServicios" Multiplicity="1" />
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoServicios">
-              <PropertyRef Name="IdTS" />
-            </Principal>
-            <Dependent Role="Servicios">
-              <PropertyRef Name="IdTS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Ventas_Servicios">
-          <End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
-          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicios">
-              <PropertyRef Name="contro" />
-            </Principal>
-            <Dependent Role="Ventas">
-              <PropertyRef Name="contro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="DataBase" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Areas" EntityType="Self.Areas" />
-          <EntitySet Name="AreasAd" EntityType="Self.AreasAd" />
-          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
-          <EntitySet Name="DiasHabiles" EntityType="Self.DiasHabiles" />
-          <EntitySet Name="Eventos" EntityType="Self.Eventos" />
-          <EntitySet Name="OpcionesSistema" EntityType="Self.OpcionesSistema" />
-          <EntitySet Name="PerfilesAd" EntityType="Self.PerfilesAd" />
-          <EntitySet Name="Referencias" EntityType="Self.Referencias" />
-          <EntitySet Name="Servicios" EntityType="Self.Servicios" />
-          <EntitySet Name="TipoServicios" EntityType="Self.TipoServicios" />
-          <EntitySet Name="UsuariosAd" EntityType="Self.UsuariosAd" />
-          <EntitySet Name="Ventas" EntityType="Self.Ventas" />
-          <AssociationSet Name="FK_Servicios_Areas" Association="Self.FK_Servicios_Areas">
-            <End Role="Areas" EntitySet="Areas" />
-            <End Role="Servicios" EntitySet="Servicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuariosAd_AreasAd" Association="Self.FK_UsuariosAd_AreasAd">
-            <End Role="AreasAd" EntitySet="AreasAd" />
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Referencias_Clientes" Association="Self.FK_Referencias_Clientes">
-            <End Role="Clientes" EntitySet="Clientes" />
-            <End Role="Referencias" EntitySet="Referencias" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Evento_UsuariosAd" Association="Self.FK_Evento_UsuariosAd">
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-            <End Role="Eventos" EntitySet="Eventos" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UsuariosAd_PerfilesAd" Association="Self.FK_UsuariosAd_PerfilesAd">
-            <End Role="PerfilesAd" EntitySet="PerfilesAd" />
-            <End Role="UsuariosAd" EntitySet="UsuariosAd" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ventas_Referencias" Association="Self.FK_Ventas_Referencias">
-            <End Role="Referencias" EntitySet="Referencias" />
-            <End Role="Ventas" EntitySet="Ventas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Servicios_TipoServicios" Association="Self.FK_Servicios_TipoServicios">
-            <End Role="TipoServicios" EntitySet="TipoServicios" />
-            <End Role="Servicios" EntitySet="Servicios" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Ventas_Servicios" Association="Self.FK_Ventas_Servicios">
-            <End Role="Servicios" EntitySet="Servicios" />
-            <End Role="Ventas" EntitySet="Ventas" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
-    </edmx:ConceptualModels>
-    <!-- C-S mapping content -->
-    <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BD_Sys_IPModelStoreContainer" CdmEntityContainer="DataBase">
-          <EntitySetMapping Name="Areas">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Areas">
-              <MappingFragment StoreEntitySet="Areas">
-                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
-                <ScalarProperty Name="nombrearea" ColumnName="nombrearea" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AreasAd">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.AreasAd">
-              <MappingFragment StoreEntitySet="AreasAd">
-                <ScalarProperty Name="IdAreaAd" ColumnName="IdAreaAd" />
-                <ScalarProperty Name="nombrearead" ColumnName="nombrearead" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Clientes">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Clientes">
-              <MappingFragment StoreEntitySet="Clientes">
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="rfc_" ColumnName="rfc " />
-                <ScalarProperty Name="tipopersona" ColumnName="tipopersona" />
-                <ScalarProperty Name="matricula" ColumnName="matricula" />
-                <ScalarProperty Name="nombre_" ColumnName="nombre " />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="correoelectronico" ColumnName="correoelectronico" />
-                <ScalarProperty Name="calle" ColumnName="calle" />
-                <ScalarProperty Name="numeroex" ColumnName="numeroex" />
-                <ScalarProperty Name="numeroin" ColumnName="numeroin" />
-                <ScalarProperty Name="colonia" ColumnName="colonia" />
-                <ScalarProperty Name="cp" ColumnName="cp" />
-                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DiasHabiles">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.DiasHabiles">
-              <MappingFragment StoreEntitySet="DiasHabiles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="fechaHabil" ColumnName="fechaHabil" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Eventos">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Eventos">
-              <MappingFragment StoreEntitySet="Eventos">
-                <ScalarProperty Name="IdEvento" ColumnName="IdEvento" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="hora" ColumnName="hora" />
-                <ScalarProperty Name="operacion" ColumnName="operacion" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="IdUsuariosAd" ColumnName="IdUsuariosAd" />
-                <ScalarProperty Name="ip" ColumnName="ip" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OpcionesSistema">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.OpcionesSistema">
-              <MappingFragment StoreEntitySet="OpcionesSistema">
-                <ScalarProperty Name="IdOpc" ColumnName="IdOpc" />
-                <ScalarProperty Name="colorPrimario" ColumnName="colorPrimario" />
-                <ScalarProperty Name="colorPrimarioAl" ColumnName="colorPrimarioAl" />
-                <ScalarProperty Name="colorSecundario" ColumnName="colorSecundario" />
-                <ScalarProperty Name="colorTitulos" ColumnName="colorTitulos" />
-                <ScalarProperty Name="colorTexto" ColumnName="colorTexto" />
-                <ScalarProperty Name="colorBEliminar" ColumnName="colorBEliminar" />
-                <ScalarProperty Name="colorBEliminarAl" ColumnName="colorBEliminarAl" />
-                <ScalarProperty Name="colorBVer" ColumnName="colorBVer" />
-                <ScalarProperty Name="colorBVerAl" ColumnName="colorBVerAl" />
-                <ScalarProperty Name="colorBEditar" ColumnName="colorBEditar" />
-                <ScalarProperty Name="colorBEditarAl" ColumnName="colorBEditarAl" />
-                <ScalarProperty Name="colorBComprar" ColumnName="colorBComprar" />
-                <ScalarProperty Name="colorBComprarAl" ColumnName="colorBComprarAl" />
-                <ScalarProperty Name="numCuenta" ColumnName="numCuenta" />
-                <ScalarProperty Name="nomBuzon" ColumnName="nomBuzon" />
-                <ScalarProperty Name="cuenClave" ColumnName="cuenClave" />
-                <ScalarProperty Name="constanteRef" ColumnName="constanteRef" />
-                <ScalarProperty Name="numRap" ColumnName="numRap" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PerfilesAd">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.PerfilesAd">
-              <MappingFragment StoreEntitySet="PerfilesAd">
-                <ScalarProperty Name="restaurarsistema" ColumnName="restaurarsistema" />
-                <ScalarProperty Name="verhistorico" ColumnName="verhistorico" />
-                <ScalarProperty Name="subiralumnos" ColumnName="subiralumnos" />
-                <ScalarProperty Name="veralumnos" ColumnName="veralumnos" />
-                <ScalarProperty Name="adminalumnos" ColumnName="adminalumnos" />
-                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
-                <ScalarProperty Name="nombreperfil" ColumnName="nombreperfil" />
-                <ScalarProperty Name="adminperfiles" ColumnName="adminperfiles" />
-                <ScalarProperty Name="adminadareas" ColumnName="adminadareas" />
-                <ScalarProperty Name="verservicios" ColumnName="verservicios" />
-                <ScalarProperty Name="admintiposervicios" ColumnName="admintiposervicios" />
-                <ScalarProperty Name="verreferencias" ColumnName="verreferencias" />
-                <ScalarProperty Name="adminusuarios" ColumnName="adminusuarios" />
-                <ScalarProperty Name="administrarareas" ColumnName="administrarareas" />
-                <ScalarProperty Name="adminservicio" ColumnName="adminservicio" />
-                <ScalarProperty Name="bitacoraeventos" ColumnName="bitacoraeventos" />
-                <ScalarProperty Name="subirarchivo" ColumnName="subirarchivo" />
-                <ScalarProperty Name="generarcompra" ColumnName="generarcompra" />
-                <ScalarProperty Name="adminparametros" ColumnName="adminparametros" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Referencias">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Referencias">
-              <MappingFragment StoreEntitySet="Referencias">
-                <ScalarProperty Name="numref" ColumnName="numref" />
-                <ScalarProperty Name="estadoref" ColumnName="estadoref" />
-                <ScalarProperty Name="fechaemision" ColumnName="fechaemision" />
-                <ScalarProperty Name="fechaestado" ColumnName="fechaestado" />
-                <ScalarProperty Name="fechavencimiento" ColumnName="fechavencimiento" />
-                <ScalarProperty Name="monto" ColumnName="monto" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Servicios">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Servicios">
-              <MappingFragment StoreEntitySet="Servicios">
-                <ScalarProperty Name="contro" ColumnName="contro" />
-                <ScalarProperty Name="IdArea" ColumnName="IdArea" />
-                <ScalarProperty Name="IdTS" ColumnName="IdTS" />
-                <ScalarProperty Name="nomservicio" ColumnName="nomservicio" />
-                <ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
-                <ScalarProperty Name="duracion" ColumnName="duracion" />
-                <ScalarProperty Name="costo" ColumnName="costo" />
-                <ScalarProperty Name="prerrequisitos" ColumnName="prerrequisitos" />
-                <ScalarProperty Name="diasvigencia" ColumnName="diasvigencia" />
-                <ScalarProperty Name="serviciosmaxacobrar" ColumnName="serviciosmaxacobrar" />
-                <ScalarProperty Name="cuetacontable" ColumnName="cuetacontable" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TipoServicios">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.TipoServicios">
-              <MappingFragment StoreEntitySet="TipoServicios">
-                <ScalarProperty Name="IdTS" ColumnName="IdTS" />
-                <ScalarProperty Name="tipo" ColumnName="tipo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsuariosAd">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.UsuariosAd">
-              <MappingFragment StoreEntitySet="UsuariosAd">
-                <ScalarProperty Name="IdUsuariosAd" ColumnName="IdUsuariosAd" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="iniciales" ColumnName="iniciales" />
-                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
-                <ScalarProperty Name="correoelectronico" ColumnName="correoelectronico" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="IdAreaAd" ColumnName="IdAreaAd" />
-                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Ventas">
-            <EntityTypeMapping TypeName="BD_Sys_IPModel.Ventas">
-              <MappingFragment StoreEntitySet="Ventas">
-                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
-                <ScalarProperty Name="numref" ColumnName="numref" />
-                <ScalarProperty Name="contro" ColumnName="contro" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="costount" ColumnName="costount" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
-  </edmx:Runtime>
-  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
-      </DesignerInfoPropertySet>
-    </Options>
-    <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
+	<!-- EF Runtime content -->
+	<edmx:Runtime>
+		<!-- SSDL content -->
+		<edmx:StorageModels>
+			<Schema Namespace="BD_Sys_IPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+				<EntityType Name="Areas">
+					<Key>
+						<PropertyRef Name="IdArea" />
+					</Key>
+					<Property Name="IdArea" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="nombrearea" Type="nvarchar" MaxLength="30" Nullable="false" />
+				</EntityType>
+				<EntityType Name="AreasAd">
+					<Key>
+						<PropertyRef Name="IdAreaAd" />
+					</Key>
+					<Property Name="IdAreaAd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="nombrearead" Type="nvarchar" MaxLength="25" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Clientes">
+					<Key>
+						<PropertyRef Name="IdCliente" />
+					</Key>
+					<Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="rfc_" Type="nvarchar" MaxLength="13" />
+					<Property Name="tipopersona" Type="nvarchar" MaxLength="6" Nullable="false" />
+					<Property Name="matricula" Type="nvarchar" MaxLength="9" />
+					<Property Name="nombre_" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="apellidos" Type="nvarchar" MaxLength="40" Nullable="false" />
+					<Property Name="correoelectronico" Type="nvarchar" MaxLength="40" Nullable="false" />
+					<Property Name="calle" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="numeroex" Type="nvarchar" MaxLength="10" />
+					<Property Name="numeroin" Type="nvarchar" MaxLength="5" />
+					<Property Name="colonia" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="cp" Type="nvarchar" MaxLength="10" Nullable="false" />
+					<Property Name="ciudad" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="estado" Type="nvarchar" MaxLength="30" Nullable="false" />
+				</EntityType>
+				<EntityType Name="DiasHabiles">
+					<Key>
+						<PropertyRef Name="Id" />
+					</Key>
+					<Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="fechaHabil" Type="datetime" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Eventos">
+					<Key>
+						<PropertyRef Name="IdEvento" />
+					</Key>
+					<Property Name="IdEvento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="fecha" Type="datetime" Nullable="false" />
+					<Property Name="hora" Type="nvarchar" MaxLength="5" Nullable="false" />
+					<Property Name="operacion" Type="nvarchar" MaxLength="15" Nullable="false" />
+					<Property Name="descripcion" Type="nvarchar" MaxLength="150" Nullable="false" />
+					<Property Name="IdUsuariosAd" Type="int" Nullable="false" />
+					<Property Name="ip" Type="nvarchar" MaxLength="15" Nullable="false" />
+				</EntityType>
+				<EntityType Name="OpcionesSistema">
+					<Key>
+						<PropertyRef Name="IdOpc" />
+					</Key>
+					<Property Name="IdOpc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="colorPrimario" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorPrimarioAl" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorSecundario" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorTitulos" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorTexto" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBEliminar" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBEliminarAl" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBVer" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBVerAl" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBEditar" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBEditarAl" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBComprar" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="colorBComprarAl" Type="varchar" MaxLength="7" Nullable="false" />
+					<Property Name="numCuenta" Type="varchar" MaxLength="10" Nullable="false" />
+					<Property Name="nomBuzon" Type="varchar" MaxLength="10" Nullable="false" />
+					<Property Name="cuenClave" Type="varchar" MaxLength="18" Nullable="false" />
+					<Property Name="constanteRef" Type="varchar" MaxLength="1" Nullable="false" />
+					<Property Name="numRap" Type="varchar" MaxLength="18" Nullable="false" />
+				</EntityType>
+				<EntityType Name="PerfilesAd">
+					<Key>
+						<PropertyRef Name="IdPerfil" />
+					</Key>
+					<Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="nombreperfil" Type="nvarchar" MaxLength="25" Nullable="false" />
+					<Property Name="adminperfiles" Type="bit" Nullable="false" />
+					<Property Name="adminadareas" Type="bit" Nullable="false" />
+					<Property Name="verservicios" Type="bit" Nullable="false" />
+					<Property Name="admintiposervicios" Type="bit" Nullable="false" />
+					<Property Name="verreferencias" Type="bit" Nullable="false" />
+					<Property Name="adminusuarios" Type="bit" Nullable="false" />
+					<Property Name="administrarareas" Type="bit" Nullable="false" />
+					<Property Name="adminservicio" Type="bit" Nullable="false" />
+					<Property Name="bitacoraeventos" Type="bit" Nullable="false" />
+					<Property Name="subirarchivo" Type="bit" Nullable="false" />
+					<Property Name="generarcompra" Type="bit" Nullable="false" />
+					<Property Name="adminparametros" Type="bit" Nullable="false" />
+					<Property Name="adminalumnos" Type="bit" Nullable="false" />
+					<Property Name="veralumnos" Type="bit" Nullable="false" />
+					<Property Name="subiralumnos" Type="bit" Nullable="false" />
+					<Property Name="verhistorico" Type="bit" Nullable="false" />
+					<Property Name="restaurarsistema" Type="bit" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Referencias">
+					<Key>
+						<PropertyRef Name="numref" />
+					</Key>
+					<Property Name="numref" Type="nvarchar" MaxLength="15" Nullable="false" StoreGeneratedPattern="None" />
+					<Property Name="estadoref" Type="nvarchar" MaxLength="10" Nullable="false" />
+					<Property Name="fechaemision" Type="datetime" Nullable="false" />
+					<Property Name="fechaestado" Type="datetime" Nullable="false" />
+					<Property Name="fechavencimiento" Type="datetime" Nullable="false" />
+					<Property Name="monto" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+					<Property Name="IdCliente" Type="int" Nullable="false" />
+				</EntityType>
+				<EntityType Name="Servicios">
+					<Key>
+						<PropertyRef Name="contro" />
+					</Key>
+					<Property Name="contro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="IdArea" Type="int" Nullable="false" />
+					<Property Name="IdTS" Type="int" Nullable="false" />
+					<Property Name="nomservicio" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="Objetivo" Type="nvarchar" MaxLength="150" />
+					<Property Name="duracion" Type="nvarchar" MaxLength="15" />
+					<Property Name="costo" Type="decimal" Precision="7" Scale="2" Nullable="false" />
+					<Property Name="prerrequisitos" Type="nvarchar" MaxLength="150" />
+					<Property Name="diasvigencia" Type="int" Nullable="false" />
+					<Property Name="serviciosmaxacobrar" Type="int" Nullable="false" />
+					<Property Name="cuetacontable" Type="int" Nullable="false" />
+					<Property Name="estado" Type="bit" Nullable="false" />
+				</EntityType>
+				<EntityType Name="TipoServicios">
+					<Key>
+						<PropertyRef Name="IdTS" />
+					</Key>
+					<Property Name="IdTS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="tipo" Type="nvarchar" MaxLength="25" Nullable="false" />
+				</EntityType>
+				<EntityType Name="UsuariosAd">
+					<Key>
+						<PropertyRef Name="IdUsuariosAd" />
+					</Key>
+					<Property Name="IdUsuariosAd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="nombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+					<Property Name="iniciales" Type="nvarchar" MaxLength="6" Nullable="false" />
+					<Property Name="IdPerfil" Type="int" Nullable="false" />
+					<Property Name="correoelectronico" Type="nvarchar" MaxLength="60" Nullable="false" />
+					<Property Name="estado" Type="bit" Nullable="false" />
+					<Property Name="IdAreaAd" Type="int" Nullable="false" />
+					<Property Name="contrasena" Type="nvarchar" MaxLength="200" />
+				</EntityType>
+				<EntityType Name="Ventas">
+					<Key>
+						<PropertyRef Name="IdVenta" />
+					</Key>
+					<Property Name="IdVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+					<Property Name="numref" Type="nvarchar" MaxLength="15" Nullable="false" />
+					<Property Name="contro" Type="int" Nullable="false" />
+					<Property Name="cantidad" Type="int" Nullable="false" />
+					<Property Name="costount" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+				</EntityType>
+				<Association Name="FK_Evento_UsuariosAd">
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="1" />
+					<End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="UsuariosAd">
+							<PropertyRef Name="IdUsuariosAd" />
+						</Principal>
+						<Dependent Role="Eventos">
+							<PropertyRef Name="IdUsuariosAd" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Referencias_Clientes">
+					<End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+					<End Role="Referencias" Type="Self.Referencias" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Clientes">
+							<PropertyRef Name="IdCliente" />
+						</Principal>
+						<Dependent Role="Referencias">
+							<PropertyRef Name="IdCliente" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Servicios_Areas">
+					<End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Areas">
+							<PropertyRef Name="IdArea" />
+						</Principal>
+						<Dependent Role="Servicios">
+							<PropertyRef Name="IdArea" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Servicios_TipoServicios">
+					<End Role="TipoServicios" Type="Self.TipoServicios" Multiplicity="1" />
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="TipoServicios">
+							<PropertyRef Name="IdTS" />
+						</Principal>
+						<Dependent Role="Servicios">
+							<PropertyRef Name="IdTS" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_UsuariosAd_AreasAd">
+					<End Role="AreasAd" Type="Self.AreasAd" Multiplicity="1" />
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="AreasAd">
+							<PropertyRef Name="IdAreaAd" />
+						</Principal>
+						<Dependent Role="UsuariosAd">
+							<PropertyRef Name="IdAreaAd" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_UsuariosAd_PerfilesAd">
+					<End Role="PerfilesAd" Type="Self.PerfilesAd" Multiplicity="1" />
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="PerfilesAd">
+							<PropertyRef Name="IdPerfil" />
+						</Principal>
+						<Dependent Role="UsuariosAd">
+							<PropertyRef Name="IdPerfil" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Ventas_Referencias">
+					<End Role="Referencias" Type="Self.Referencias" Multiplicity="1" />
+					<End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Referencias">
+							<PropertyRef Name="numref" />
+						</Principal>
+						<Dependent Role="Ventas">
+							<PropertyRef Name="numref" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Ventas_Servicios">
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+					<End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Servicios">
+							<PropertyRef Name="contro" />
+						</Principal>
+						<Dependent Role="Ventas">
+							<PropertyRef Name="contro" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<EntityContainer Name="BD_Sys_IPModelStoreContainer">
+					<EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="AreasAd" EntityType="Self.AreasAd" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="DiasHabiles" EntityType="Self.DiasHabiles" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="OpcionesSistema" EntityType="Self.OpcionesSistema" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="PerfilesAd" EntityType="Self.PerfilesAd" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="Referencias" EntityType="Self.Referencias" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="Servicios" EntityType="Self.Servicios" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="TipoServicios" EntityType="Self.TipoServicios" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="UsuariosAd" EntityType="Self.UsuariosAd" Schema="dbo" store:Type="Tables" />
+					<EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+					<AssociationSet Name="FK_Evento_UsuariosAd" Association="Self.FK_Evento_UsuariosAd">
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+						<End Role="Eventos" EntitySet="Eventos" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Referencias_Clientes" Association="Self.FK_Referencias_Clientes">
+						<End Role="Clientes" EntitySet="Clientes" />
+						<End Role="Referencias" EntitySet="Referencias" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Servicios_Areas" Association="Self.FK_Servicios_Areas">
+						<End Role="Areas" EntitySet="Areas" />
+						<End Role="Servicios" EntitySet="Servicios" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Servicios_TipoServicios" Association="Self.FK_Servicios_TipoServicios">
+						<End Role="TipoServicios" EntitySet="TipoServicios" />
+						<End Role="Servicios" EntitySet="Servicios" />
+					</AssociationSet>
+					<AssociationSet Name="FK_UsuariosAd_AreasAd" Association="Self.FK_UsuariosAd_AreasAd">
+						<End Role="AreasAd" EntitySet="AreasAd" />
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+					</AssociationSet>
+					<AssociationSet Name="FK_UsuariosAd_PerfilesAd" Association="Self.FK_UsuariosAd_PerfilesAd">
+						<End Role="PerfilesAd" EntitySet="PerfilesAd" />
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Ventas_Referencias" Association="Self.FK_Ventas_Referencias">
+						<End Role="Referencias" EntitySet="Referencias" />
+						<End Role="Ventas" EntitySet="Ventas" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Ventas_Servicios" Association="Self.FK_Ventas_Servicios">
+						<End Role="Servicios" EntitySet="Servicios" />
+						<End Role="Ventas" EntitySet="Ventas" />
+					</AssociationSet>
+				</EntityContainer>
+			</Schema>
+		</edmx:StorageModels>
+		<!-- CSDL content -->
+		<edmx:ConceptualModels>
+			<Schema Namespace="BD_Sys_IPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+				<EntityType Name="Areas">
+					<Key>
+						<PropertyRef Name="IdArea" />
+					</Key>
+					<Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="nombrearea" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<NavigationProperty Name="Servicios" Relationship="Self.FK_Servicios_Areas" FromRole="Areas" ToRole="Servicios" />
+				</EntityType>
+				<EntityType Name="AreasAd">
+					<Key>
+						<PropertyRef Name="IdAreaAd" />
+					</Key>
+					<Property Name="IdAreaAd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="nombrearead" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+					<NavigationProperty Name="UsuariosAd" Relationship="Self.FK_UsuariosAd_AreasAd" FromRole="AreasAd" ToRole="UsuariosAd" />
+				</EntityType>
+				<EntityType Name="Clientes">
+					<Key>
+						<PropertyRef Name="IdCliente" />
+					</Key>
+					<Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="rfc_" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
+					<Property Name="tipopersona" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="matricula" Type="String" MaxLength="9" FixedLength="false" Unicode="true" />
+					<Property Name="nombre_" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="apellidos" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="correoelectronico" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="calle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="numeroex" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+					<Property Name="numeroin" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+					<Property Name="colonia" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="cp" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="ciudad" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<NavigationProperty Name="Referencias" Relationship="Self.FK_Referencias_Clientes" FromRole="Clientes" ToRole="Referencias" />
+				</EntityType>
+				<EntityType Name="DiasHabiles">
+					<Key>
+						<PropertyRef Name="Id" />
+					</Key>
+					<Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="fechaHabil" Type="DateTime" Nullable="false" Precision="3" />
+				</EntityType>
+				<EntityType Name="Eventos">
+					<Key>
+						<PropertyRef Name="IdEvento" />
+					</Key>
+					<Property Name="IdEvento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="fecha" Type="DateTime" Nullable="false" Precision="3" />
+					<Property Name="hora" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="operacion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="IdUsuariosAd" Type="Int32" Nullable="false" />
+					<Property Name="ip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+					<NavigationProperty Name="UsuariosAd" Relationship="Self.FK_Evento_UsuariosAd" FromRole="Eventos" ToRole="UsuariosAd" />
+				</EntityType>
+				<EntityType Name="OpcionesSistema">
+					<Key>
+						<PropertyRef Name="IdOpc" />
+					</Key>
+					<Property Name="IdOpc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="colorPrimario" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorPrimarioAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorSecundario" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorTitulos" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorTexto" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBEliminar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBEliminarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBVer" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBVerAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBEditar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBEditarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBComprar" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="colorBComprarAl" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="numCuenta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="nomBuzon" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="cuenClave" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="constanteRef" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+					<Property Name="numRap" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+				</EntityType>
+				<EntityType Name="PerfilesAd">
+					<Key>
+						<PropertyRef Name="IdPerfil" />
+					</Key>
+					<Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="nombreperfil" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="adminperfiles" Type="Boolean" Nullable="false" />
+					<Property Name="adminadareas" Type="Boolean" Nullable="false" />
+					<Property Name="verservicios" Type="Boolean" Nullable="false" />
+					<Property Name="admintiposervicios" Type="Boolean" Nullable="false" />
+					<Property Name="verreferencias" Type="Boolean" Nullable="false" />
+					<Property Name="adminusuarios" Type="Boolean" Nullable="false" />
+					<Property Name="administrarareas" Type="Boolean" Nullable="false" />
+					<Property Name="adminservicio" Type="Boolean" Nullable="false" />
+					<Property Name="bitacoraeventos" Type="Boolean" Nullable="false" />
+					<Property Name="subirarchivo" Type="Boolean" Nullable="false" />
+					<Property Name="generarcompra" Type="Boolean" Nullable="false" />
+					<Property Name="adminparametros" Type="Boolean" Nullable="false" />
+					<Property Name="adminalumnos" Type="Boolean" Nullable="false" />
+					<Property Name="veralumnos" Type="Boolean" Nullable="false" />
+					<Property Name="subiralumnos" Type="Boolean" Nullable="false" />
+					<Property Name="verhistorico" Type="Boolean" Nullable="false" />
+					<Property Name="restaurarsistema" Type="Boolean" Nullable="false" />
+					<NavigationProperty Name="UsuariosAd" Relationship="Self.FK_UsuariosAd_PerfilesAd" FromRole="PerfilesAd" ToRole="UsuariosAd" />
+				</EntityType>
+				<EntityType Name="Referencias">
+					<Key>
+						<PropertyRef Name="numref" />
+					</Key>
+					<Property Name="numref" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" annotation:StoreGeneratedPattern="None" />
+					<Property Name="estadoref" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="fechaemision" Type="DateTime" Nullable="false" Precision="3" />
+					<Property Name="fechaestado" Type="DateTime" Nullable="false" Precision="3" />
+					<Property Name="fechavencimiento" Type="DateTime" Nullable="false" Precision="3" />
+					<Property Name="monto" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+					<Property Name="IdCliente" Type="Int32" Nullable="false" />
+					<NavigationProperty Name="Clientes" Relationship="Self.FK_Referencias_Clientes" FromRole="Referencias" ToRole="Clientes" />
+					<NavigationProperty Name="Ventas" Relationship="Self.FK_Ventas_Referencias" FromRole="Referencias" ToRole="Ventas" />
+				</EntityType>
+				<EntityType Name="Servicios">
+					<Key>
+						<PropertyRef Name="contro" />
+					</Key>
+					<Property Name="contro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="IdArea" Type="Int32" Nullable="false" />
+					<Property Name="IdTS" Type="Int32" Nullable="false" />
+					<Property Name="nomservicio" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="Objetivo" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+					<Property Name="duracion" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+					<Property Name="costo" Type="Decimal" Precision="7" Scale="2" Nullable="false" />
+					<Property Name="prerrequisitos" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+					<Property Name="diasvigencia" Type="Int32" Nullable="false" />
+					<Property Name="serviciosmaxacobrar" Type="Int32" Nullable="false" />
+					<Property Name="cuetacontable" Type="Int32" Nullable="false" />
+					<Property Name="estado" Type="Boolean" Nullable="false" />
+					<NavigationProperty Name="Areas" Relationship="Self.FK_Servicios_Areas" FromRole="Servicios" ToRole="Areas" />
+					<NavigationProperty Name="TipoServicios" Relationship="Self.FK_Servicios_TipoServicios" FromRole="Servicios" ToRole="TipoServicios" />
+					<NavigationProperty Name="Ventas" Relationship="Self.FK_Ventas_Servicios" FromRole="Servicios" ToRole="Ventas" />
+				</EntityType>
+				<EntityType Name="TipoServicios">
+					<Key>
+						<PropertyRef Name="IdTS" />
+					</Key>
+					<Property Name="IdTS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+					<NavigationProperty Name="Servicios" Relationship="Self.FK_Servicios_TipoServicios" FromRole="TipoServicios" ToRole="Servicios" />
+				</EntityType>
+				<EntityType Name="UsuariosAd">
+					<Key>
+						<PropertyRef Name="IdUsuariosAd" />
+					</Key>
+					<Property Name="IdUsuariosAd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="iniciales" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="IdPerfil" Type="Int32" Nullable="false" />
+					<Property Name="correoelectronico" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="estado" Type="Boolean" Nullable="false" />
+					<Property Name="IdAreaAd" Type="Int32" Nullable="false" />
+					<Property Name="contrasena" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+					<NavigationProperty Name="AreasAd" Relationship="Self.FK_UsuariosAd_AreasAd" FromRole="UsuariosAd" ToRole="AreasAd" />
+					<NavigationProperty Name="Eventos" Relationship="Self.FK_Evento_UsuariosAd" FromRole="UsuariosAd" ToRole="Eventos" />
+					<NavigationProperty Name="PerfilesAd" Relationship="Self.FK_UsuariosAd_PerfilesAd" FromRole="UsuariosAd" ToRole="PerfilesAd" />
+				</EntityType>
+				<EntityType Name="Ventas">
+					<Key>
+						<PropertyRef Name="IdVenta" />
+					</Key>
+					<Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+					<Property Name="numref" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+					<Property Name="contro" Type="Int32" Nullable="false" />
+					<Property Name="cantidad" Type="Int32" Nullable="false" />
+					<Property Name="costount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+					<NavigationProperty Name="Referencias" Relationship="Self.FK_Ventas_Referencias" FromRole="Ventas" ToRole="Referencias" />
+					<NavigationProperty Name="Servicios" Relationship="Self.FK_Ventas_Servicios" FromRole="Ventas" ToRole="Servicios" />
+				</EntityType>
+				<Association Name="FK_Servicios_Areas">
+					<End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Areas">
+							<PropertyRef Name="IdArea" />
+						</Principal>
+						<Dependent Role="Servicios">
+							<PropertyRef Name="IdArea" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_UsuariosAd_AreasAd">
+					<End Role="AreasAd" Type="Self.AreasAd" Multiplicity="1" />
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="AreasAd">
+							<PropertyRef Name="IdAreaAd" />
+						</Principal>
+						<Dependent Role="UsuariosAd">
+							<PropertyRef Name="IdAreaAd" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Referencias_Clientes">
+					<End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+					<End Role="Referencias" Type="Self.Referencias" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Clientes">
+							<PropertyRef Name="IdCliente" />
+						</Principal>
+						<Dependent Role="Referencias">
+							<PropertyRef Name="IdCliente" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Evento_UsuariosAd">
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="1" />
+					<End Role="Eventos" Type="Self.Eventos" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="UsuariosAd">
+							<PropertyRef Name="IdUsuariosAd" />
+						</Principal>
+						<Dependent Role="Eventos">
+							<PropertyRef Name="IdUsuariosAd" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_UsuariosAd_PerfilesAd">
+					<End Role="PerfilesAd" Type="Self.PerfilesAd" Multiplicity="1" />
+					<End Role="UsuariosAd" Type="Self.UsuariosAd" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="PerfilesAd">
+							<PropertyRef Name="IdPerfil" />
+						</Principal>
+						<Dependent Role="UsuariosAd">
+							<PropertyRef Name="IdPerfil" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Ventas_Referencias">
+					<End Role="Referencias" Type="Self.Referencias" Multiplicity="1" />
+					<End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Referencias">
+							<PropertyRef Name="numref" />
+						</Principal>
+						<Dependent Role="Ventas">
+							<PropertyRef Name="numref" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Servicios_TipoServicios">
+					<End Role="TipoServicios" Type="Self.TipoServicios" Multiplicity="1" />
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="TipoServicios">
+							<PropertyRef Name="IdTS" />
+						</Principal>
+						<Dependent Role="Servicios">
+							<PropertyRef Name="IdTS" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<Association Name="FK_Ventas_Servicios">
+					<End Role="Servicios" Type="Self.Servicios" Multiplicity="1" />
+					<End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+					<ReferentialConstraint>
+						<Principal Role="Servicios">
+							<PropertyRef Name="contro" />
+						</Principal>
+						<Dependent Role="Ventas">
+							<PropertyRef Name="contro" />
+						</Dependent>
+					</ReferentialConstraint>
+				</Association>
+				<EntityContainer Name="DataBase" annotation:LazyLoadingEnabled="true">
+					<EntitySet Name="Areas" EntityType="Self.Areas" />
+					<EntitySet Name="AreasAd" EntityType="Self.AreasAd" />
+					<EntitySet Name="Clientes" EntityType="Self.Clientes" />
+					<EntitySet Name="DiasHabiles" EntityType="Self.DiasHabiles" />
+					<EntitySet Name="Eventos" EntityType="Self.Eventos" />
+					<EntitySet Name="OpcionesSistema" EntityType="Self.OpcionesSistema" />
+					<EntitySet Name="PerfilesAd" EntityType="Self.PerfilesAd" />
+					<EntitySet Name="Referencias" EntityType="Self.Referencias" />
+					<EntitySet Name="Servicios" EntityType="Self.Servicios" />
+					<EntitySet Name="TipoServicios" EntityType="Self.TipoServicios" />
+					<EntitySet Name="UsuariosAd" EntityType="Self.UsuariosAd" />
+					<EntitySet Name="Ventas" EntityType="Self.Ventas" />
+					<AssociationSet Name="FK_Servicios_Areas" Association="Self.FK_Servicios_Areas">
+						<End Role="Areas" EntitySet="Areas" />
+						<End Role="Servicios" EntitySet="Servicios" />
+					</AssociationSet>
+					<AssociationSet Name="FK_UsuariosAd_AreasAd" Association="Self.FK_UsuariosAd_AreasAd">
+						<End Role="AreasAd" EntitySet="AreasAd" />
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Referencias_Clientes" Association="Self.FK_Referencias_Clientes">
+						<End Role="Clientes" EntitySet="Clientes" />
+						<End Role="Referencias" EntitySet="Referencias" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Evento_UsuariosAd" Association="Self.FK_Evento_UsuariosAd">
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+						<End Role="Eventos" EntitySet="Eventos" />
+					</AssociationSet>
+					<AssociationSet Name="FK_UsuariosAd_PerfilesAd" Association="Self.FK_UsuariosAd_PerfilesAd">
+						<End Role="PerfilesAd" EntitySet="PerfilesAd" />
+						<End Role="UsuariosAd" EntitySet="UsuariosAd" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Ventas_Referencias" Association="Self.FK_Ventas_Referencias">
+						<End Role="Referencias" EntitySet="Referencias" />
+						<End Role="Ventas" EntitySet="Ventas" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Servicios_TipoServicios" Association="Self.FK_Servicios_TipoServicios">
+						<End Role="TipoServicios" EntitySet="TipoServicios" />
+						<End Role="Servicios" EntitySet="Servicios" />
+					</AssociationSet>
+					<AssociationSet Name="FK_Ventas_Servicios" Association="Self.FK_Ventas_Servicios">
+						<End Role="Servicios" EntitySet="Servicios" />
+						<End Role="Ventas" EntitySet="Ventas" />
+					</AssociationSet>
+				</EntityContainer>
+			</Schema>
+		</edmx:ConceptualModels>
+		<!-- C-S mapping content -->
+		<edmx:Mappings>
+			<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+				<EntityContainerMapping StorageEntityContainer="BD_Sys_IPModelStoreContainer" CdmEntityContainer="DataBase">
+					<EntitySetMapping Name="Areas">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Areas">
+							<MappingFragment StoreEntitySet="Areas">
+								<ScalarProperty Name="IdArea" ColumnName="IdArea" />
+								<ScalarProperty Name="nombrearea" ColumnName="nombrearea" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="AreasAd">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.AreasAd">
+							<MappingFragment StoreEntitySet="AreasAd">
+								<ScalarProperty Name="IdAreaAd" ColumnName="IdAreaAd" />
+								<ScalarProperty Name="nombrearead" ColumnName="nombrearead" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Clientes">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Clientes">
+							<MappingFragment StoreEntitySet="Clientes">
+								<ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+								<ScalarProperty Name="rfc_" ColumnName="rfc_" />
+								<ScalarProperty Name="tipopersona" ColumnName="tipopersona" />
+								<ScalarProperty Name="matricula" ColumnName="matricula" />
+								<ScalarProperty Name="nombre_" ColumnName="nombre_" />
+								<ScalarProperty Name="apellidos" ColumnName="apellidos" />
+								<ScalarProperty Name="correoelectronico" ColumnName="correoelectronico" />
+								<ScalarProperty Name="calle" ColumnName="calle" />
+								<ScalarProperty Name="numeroex" ColumnName="numeroex" />
+								<ScalarProperty Name="numeroin" ColumnName="numeroin" />
+								<ScalarProperty Name="colonia" ColumnName="colonia" />
+								<ScalarProperty Name="cp" ColumnName="cp" />
+								<ScalarProperty Name="ciudad" ColumnName="ciudad" />
+								<ScalarProperty Name="estado" ColumnName="estado" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="DiasHabiles">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.DiasHabiles">
+							<MappingFragment StoreEntitySet="DiasHabiles">
+								<ScalarProperty Name="Id" ColumnName="Id" />
+								<ScalarProperty Name="fechaHabil" ColumnName="fechaHabil" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Eventos">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Eventos">
+							<MappingFragment StoreEntitySet="Eventos">
+								<ScalarProperty Name="IdEvento" ColumnName="IdEvento" />
+								<ScalarProperty Name="fecha" ColumnName="fecha" />
+								<ScalarProperty Name="hora" ColumnName="hora" />
+								<ScalarProperty Name="operacion" ColumnName="operacion" />
+								<ScalarProperty Name="descripcion" ColumnName="descripcion" />
+								<ScalarProperty Name="IdUsuariosAd" ColumnName="IdUsuariosAd" />
+								<ScalarProperty Name="ip" ColumnName="ip" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="OpcionesSistema">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.OpcionesSistema">
+							<MappingFragment StoreEntitySet="OpcionesSistema">
+								<ScalarProperty Name="IdOpc" ColumnName="IdOpc" />
+								<ScalarProperty Name="colorPrimario" ColumnName="colorPrimario" />
+								<ScalarProperty Name="colorPrimarioAl" ColumnName="colorPrimarioAl" />
+								<ScalarProperty Name="colorSecundario" ColumnName="colorSecundario" />
+								<ScalarProperty Name="colorTitulos" ColumnName="colorTitulos" />
+								<ScalarProperty Name="colorTexto" ColumnName="colorTexto" />
+								<ScalarProperty Name="colorBEliminar" ColumnName="colorBEliminar" />
+								<ScalarProperty Name="colorBEliminarAl" ColumnName="colorBEliminarAl" />
+								<ScalarProperty Name="colorBVer" ColumnName="colorBVer" />
+								<ScalarProperty Name="colorBVerAl" ColumnName="colorBVerAl" />
+								<ScalarProperty Name="colorBEditar" ColumnName="colorBEditar" />
+								<ScalarProperty Name="colorBEditarAl" ColumnName="colorBEditarAl" />
+								<ScalarProperty Name="colorBComprar" ColumnName="colorBComprar" />
+								<ScalarProperty Name="colorBComprarAl" ColumnName="colorBComprarAl" />
+								<ScalarProperty Name="numCuenta" ColumnName="numCuenta" />
+								<ScalarProperty Name="nomBuzon" ColumnName="nomBuzon" />
+								<ScalarProperty Name="cuenClave" ColumnName="cuenClave" />
+								<ScalarProperty Name="constanteRef" ColumnName="constanteRef" />
+								<ScalarProperty Name="numRap" ColumnName="numRap" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="PerfilesAd">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.PerfilesAd">
+							<MappingFragment StoreEntitySet="PerfilesAd">
+								<ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+								<ScalarProperty Name="nombreperfil" ColumnName="nombreperfil" />
+								<ScalarProperty Name="adminperfiles" ColumnName="adminperfiles" />
+								<ScalarProperty Name="adminadareas" ColumnName="adminadareas" />
+								<ScalarProperty Name="verservicios" ColumnName="verservicios" />
+								<ScalarProperty Name="admintiposervicios" ColumnName="admintiposervicios" />
+								<ScalarProperty Name="verreferencias" ColumnName="verreferencias" />
+								<ScalarProperty Name="adminusuarios" ColumnName="adminusuarios" />
+								<ScalarProperty Name="administrarareas" ColumnName="administrarareas" />
+								<ScalarProperty Name="adminservicio" ColumnName="adminservicio" />
+								<ScalarProperty Name="bitacoraeventos" ColumnName="bitacoraeventos" />
+								<ScalarProperty Name="subirarchivo" ColumnName="subirarchivo" />
+								<ScalarProperty Name="generarcompra" ColumnName="generarcompra" />
+								<ScalarProperty Name="adminparametros" ColumnName="adminparametros" />
+								<ScalarProperty Name="adminalumnos" ColumnName="adminalumnos" />
+								<ScalarProperty Name="veralumnos" ColumnName="veralumnos" />
+								<ScalarProperty Name="subiralumnos" ColumnName="subiralumnos" />
+								<ScalarProperty Name="verhistorico" ColumnName="verhistorico" />
+								<ScalarProperty Name="restaurarsistema" ColumnName="restaurarsistema" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Referencias">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Referencias">
+							<MappingFragment StoreEntitySet="Referencias">
+								<ScalarProperty Name="numref" ColumnName="numref" />
+								<ScalarProperty Name="estadoref" ColumnName="estadoref" />
+								<ScalarProperty Name="fechaemision" ColumnName="fechaemision" />
+								<ScalarProperty Name="fechaestado" ColumnName="fechaestado" />
+								<ScalarProperty Name="fechavencimiento" ColumnName="fechavencimiento" />
+								<ScalarProperty Name="monto" ColumnName="monto" />
+								<ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Servicios">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Servicios">
+							<MappingFragment StoreEntitySet="Servicios">
+								<ScalarProperty Name="contro" ColumnName="contro" />
+								<ScalarProperty Name="IdArea" ColumnName="IdArea" />
+								<ScalarProperty Name="IdTS" ColumnName="IdTS" />
+								<ScalarProperty Name="nomservicio" ColumnName="nomservicio" />
+								<ScalarProperty Name="Objetivo" ColumnName="Objetivo" />
+								<ScalarProperty Name="duracion" ColumnName="duracion" />
+								<ScalarProperty Name="costo" ColumnName="costo" />
+								<ScalarProperty Name="prerrequisitos" ColumnName="prerrequisitos" />
+								<ScalarProperty Name="diasvigencia" ColumnName="diasvigencia" />
+								<ScalarProperty Name="serviciosmaxacobrar" ColumnName="serviciosmaxacobrar" />
+								<ScalarProperty Name="cuetacontable" ColumnName="cuetacontable" />
+								<ScalarProperty Name="estado" ColumnName="estado" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="TipoServicios">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.TipoServicios">
+							<MappingFragment StoreEntitySet="TipoServicios">
+								<ScalarProperty Name="IdTS" ColumnName="IdTS" />
+								<ScalarProperty Name="tipo" ColumnName="tipo" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="UsuariosAd">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.UsuariosAd">
+							<MappingFragment StoreEntitySet="UsuariosAd">
+								<ScalarProperty Name="IdUsuariosAd" ColumnName="IdUsuariosAd" />
+								<ScalarProperty Name="nombre" ColumnName="nombre" />
+								<ScalarProperty Name="iniciales" ColumnName="iniciales" />
+								<ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+								<ScalarProperty Name="correoelectronico" ColumnName="correoelectronico" />
+								<ScalarProperty Name="estado" ColumnName="estado" />
+								<ScalarProperty Name="IdAreaAd" ColumnName="IdAreaAd" />
+								<ScalarProperty Name="contrasena" ColumnName="contrasena" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+					<EntitySetMapping Name="Ventas">
+						<EntityTypeMapping TypeName="BD_Sys_IPModel.Ventas">
+							<MappingFragment StoreEntitySet="Ventas">
+								<ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+								<ScalarProperty Name="numref" ColumnName="numref" />
+								<ScalarProperty Name="contro" ColumnName="contro" />
+								<ScalarProperty Name="cantidad" ColumnName="cantidad" />
+								<ScalarProperty Name="costount" ColumnName="costount" />
+							</MappingFragment>
+						</EntityTypeMapping>
+					</EntitySetMapping>
+				</EntityContainerMapping>
+			</Mapping>
+		</edmx:Mappings>
+	</edmx:Runtime>
+	<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+	<Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+		<Connection>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+			</DesignerInfoPropertySet>
+		</Connection>
+		<Options>
+			<DesignerInfoPropertySet>
+				<DesignerProperty Name="ValidateOnBuild" Value="true" />
+				<DesignerProperty Name="EnablePluralization" Value="false" />
+				<DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+				<DesignerProperty Name="UseLegacyProvider" Value="false" />
+				<DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+			</DesignerInfoPropertySet>
+		</Options>
+		<Diagrams></Diagrams>
+	</Designer>
 </edmx:Edmx>
