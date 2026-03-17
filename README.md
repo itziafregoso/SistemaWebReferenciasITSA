@@ -32,11 +32,11 @@ Este sistema permite al personal administrativo del ITSA generar referencias de 
 
 | Herramienta | Versión | Uso |
 |---|---|---|
-| Visual Studio | 2022 Community | IDE de desarrollo |
+| Visual Studio | 2026 Community | IDE de desarrollo |
 | ASP.NET MVC | .NET Framework | Framework web |
 | C# | — | Lenguaje de programación |
-| SQL Server | 2022 Express | Base de datos |
-| SSMS | 19 | Administración de BD |
+| SQL Server | 2025 Express | Base de datos |
+| SSMS | 22 | Administración de BD |
 | Bootstrap | — | Estilos y UI |
 
 ---
@@ -79,7 +79,7 @@ Descargar desde [visualstudio.microsoft.com](https://visualstudio.microsoft.com/
 - ✅ Carga de trabajo: **Desarrollo de ASP.NET y web**
 - ✅ Componente: **Plantillas de proyecto y de elemento de .NET Framework**
 
-### 3. Instalar SQL Server 2022 Express y SSMS 19
+### 3. Instalar SQL Server 2025 Express y SSMS 22
 
 Instalar con configuración estándar. Crear un usuario y contraseña independientes de la autenticación de Windows.
 
