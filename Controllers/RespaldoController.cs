@@ -30,8 +30,17 @@ namespace SistemaWeb.Controllers
 
             using(BD_Historico db = new BD_Historico())
             {
-                anioPost = db.HReferencias.OrderByDescending(d => d.Hanio).FirstOrDefault().Hanio;
-                anioPost++;
+               
+                var ultimoRegistro = db.HReferencias.OrderByDescending(d => d.Hanio).FirstOrDefault();
+
+                if (ultimoRegistro == null)
+                {
+                    anioPost = 2022;
+                }
+                else
+                {
+                    anioPost = ultimoRegistro.Hanio + 1;
+                }
 
                 if (anioPost == 1)
                 {

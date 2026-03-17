@@ -307,15 +307,28 @@ namespace SistemaWeb.Controllers
             if (op == "Eliminar")
             {
                 Servicios perfilAd = db.Servicios.Find(id);
+
+                if (perfilAd == null)
+                {
+                    TempData["error"] = "No se encontró el servicio.";
+                    return RedirectToAction("Index");
+                }
+
+                // Verificar si tiene ventas asociadas
+                bool tieneVentas = db.Ventas.Any(v => v.contro == id);
+                if (tieneVentas)
+                {
+                    TempData["error"] = "No se puede eliminar el servicio '" + perfilAd.nomservicio + "' porque tiene ventas registradas.";
+                    return RedirectToAction("Index");
+                }
+
                 var nombre = perfilAd.nomservicio;
                 db.Servicios.Remove(perfilAd);
                 db.SaveChanges();
 
-
                 // Añadir proceso a bitácora de eventos
                 String cadena = "Se eliminó el servicio " + perfilAd.nomservicio;
                 int idUser = (int)Session["IdUser"];
-
                 br.registroBitacora(cadena, idUser, "Eliminación");
 
                 return RedirectToAction("Index", new { op = "Eliminar", user = nombre });
